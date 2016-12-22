@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/vue.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script src="/js/jquery-3.1.1.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="list-group">
+                <div class="list-group-item" v-for="user in users">
+                    <div>
+                        <span v-on:click="select(user)"> Name: {{user.name}}</span>
+                        <a v-on:click="del(user)">delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" v-model="name">
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input type="text" v-model="pwd">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-default" v-on:click=add()>add</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                users: [],
+                name: '',
+                pwd: ''
+            },
+            mounted: function () {
+                this.get();
+            },
+            methods: {
+                get: function () {
+                    this.$http.get('/user').then((response) => {
+                        this.users = response.body;
+                    });
+                },
+                del: function (user) {
+                    this.$http.delete('/user/' + user._id).then((response) => {
+                        debugger;
+                        this.get();
+                    });
+                },
+                add: function () {
+                    this.$http.post('/user/add', { name: this.name, pwd: this.pwd }).then((response) => {
+                        debugger;
+                        this.get();
+                        this.name = '';
+                        this.pwd = '';
+                    });
+                },
+                select:function(user) {
+                    this.name = user.name;
+                    this.pwd = user.pwd;
+                }
+
+
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
