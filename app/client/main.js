@@ -7,8 +7,12 @@ Vue.use(VueRouter)
 
 var router = new VueRouter({
     routes:[
-        { path: '/hello',alias:'/h', component: Hello }, 
-        { path: '/bar', component: Bar}
+        {   
+            path: '/hello',
+            component: Hello,name:"hello"
+        }, 
+        { path: '/bar', component: Bar,name:"bar"},
+        { path: '/', redirect:'/hello'}
     ]
 })
 

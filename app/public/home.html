@@ -10,8 +10,8 @@
   <div id="app">
     <h3>{{ message }}</h3>
     <p>
-      <router-link to="/hello">Go to Foo</router-link>
-      <router-link to="/bar">Go to Bar</router-link>
+      <router-link :to="{ name: 'hello'}">Go to Foo</router-link>
+      <router-link :to="{ name: 'bar'}">Go to Bar</router-link>
     </p>
     <router-view></router-view>
   </div>
