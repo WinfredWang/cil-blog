@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div id="app">
+    <div><input v-model="title"></div>
+    <textarea id="text-input" v-model="content" v-on:input="update" rows="6" cols="60"></textarea>
+  <div id="preview"> </div>
+
+  <button v-on:click="post">Post</button>
+  <button v-on:click="post">Draft</button>
+</div>
+ <script src="/dist/admin.bundle.js"></script>
+</body>
+
+</html>

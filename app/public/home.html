@@ -4,18 +4,28 @@
 <head>
   <meta charset="utf-8">
   <title>Cil Blog</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 
 <body>
   <div id="app">
-    <h3>{{ message }}</h3>
-    <p>
-      <router-link :to="{ name: 'hello'}">Go to Foo</router-link>
-      <router-link :to="{ name: 'bar'}">Go to Bar</router-link>
-    </p>
-    <router-view></router-view>
+    <c-nav-bar></c-nav-bar>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <!--
+          <p>
+            <router-link :to="{ name: 'article'}">Go to Foo</router-link>
+            <router-link :to="{ name: 'detail', params: { id: 123 }}">Go to Bar</router-link>
+          </p>
+          -->
+          <router-view></router-view>
+        </div>
+        <div class="col-md-4">xx</div>
+      </div>
+    </div>
   </div>
-  <script src="/dist/build.js"></script>
+  <script src="/dist/main.bundle.js"></script>
 </body>
 
 </html>

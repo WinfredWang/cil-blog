@@ -7,6 +7,21 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/url', function(req, res, next){
+  console.log('url');
+  res.jsonp([{name:'Home', url:'article'}, {name:'About', url:'about'}]);
+});
+
+router.get('/article', function(req, res, next){
+  console.log('article');
+  res.jsonp([{ name: 'xx1', digest: 'texxx' , id:'1'}, { name: 'xx2', digest: 'adfasdfasd',id:'2'}]);
+});
+
+router.post('/save', function(req, res, next){
+  console.log(req.param('content'));
+  res.jsonp({msg:'data'});
+});
+
 router.get('/user', function(req, res, next) {
   UserDao.find(function(err, users) {
     res.jsonp(users);
