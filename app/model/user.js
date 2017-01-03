@@ -14,8 +14,13 @@ var UserDao = {
     del: function(user, callback) {
         userModel.remove(user, callback);
     },
-    find:function(callback) {
-        userModel.find(callback);
+    find:function(id, callback) {
+        if (id) {
+            userModel.find({'_id':id}, callback)
+        } else {
+            userModel.find(callback);
+        }
+        
     },
     update: function(id, user, callback) {
         userModel.update({'_id':user.id}, { $set: user}, callback);

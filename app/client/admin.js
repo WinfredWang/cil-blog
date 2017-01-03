@@ -10,6 +10,9 @@ var app = new Vue({
         title: '',
         content: ''
     },
+    mounted: function () {
+
+    },
     methods:{
         update:function() {
             document.getElementById('preview').innerHTML = Markdown.toHTML(this.content);

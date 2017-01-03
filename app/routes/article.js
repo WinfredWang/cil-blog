@@ -7,18 +7,17 @@ router.get('/url', function(req, res, next){
   res.jsonp([{name:'Home', url:'article'}, {name:'About', url:'about'}]);
 });
 
-
-router.get('/user', function(req, res, next) {
-  
-
+router.get('/article', function(req, res, next){
+  ArticleDao.find(null, function(err, articles) {
+    res.jsonp(articles);
+  });
 });
 
-router.get('/article', function(req, res, next){
-  //console.log('article');
-  //res.jsonp([{ name: 'xx1', digest: 'texxx' , id:'1'}, { name: 'xx2', digest: 'adfasdfasd',id:'2'}]);
-
-  ArticleDao.find(function(err, articles) {
-    res.jsonp(articles);
+router.get('/article/:id', function(req, res, next){
+  var id = req.params.id;
+console.log(id);
+  ArticleDao.find(id, function(err, article) {
+    res.jsonp(article);
   });
 });
 

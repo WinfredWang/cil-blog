@@ -14,8 +14,12 @@ var ArticleDao = {
     del: function(article, callback) {
         articleModel.remove(article, callback);
     },
-    find:function(callback) {
-        articleModel.find(callback);
+    find:function(id, callback) {
+         if (id) {
+            articleModel.find({'_id':id}, callback)
+        } else {
+            articleModel.find(callback);
+        }
     },
     update: function(id, article, callback) {
         articleModel.update({'_id':user.id}, { $set: article}, callback);
