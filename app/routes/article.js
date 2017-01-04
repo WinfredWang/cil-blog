@@ -4,7 +4,7 @@ var ArticleDao = require('../model/article').ArticleDao;
 
 router.get('/url', function(req, res, next){
   console.log('url');
-  res.jsonp([{name:'Home', url:'article'}, {name:'About', url:'about'}]);
+  res.jsonp([{name:'首页', url:'article'}, {name:'关于', url:'about'}]);
 });
 
 router.get('/article', function(req, res, next){

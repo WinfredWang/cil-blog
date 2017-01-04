@@ -5,7 +5,7 @@
                 <a class="navbar-brand" href="#">Cil Blog</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     <li v-for="item in items">
                         <router-link :to="{ name: item.url}">{{item.name}}</router-link>
                     </li>
@@ -30,3 +30,14 @@
     }
 
 </script>
+
+<style>
+.nav>li>.router-link-active {
+    border-bottom: 3px solid #ff9d00;
+    color:#ff9d00 !important
+}
+nav .navbar-header .navbar-brand {
+     color:#ff9d00;
+}
+
+</style>

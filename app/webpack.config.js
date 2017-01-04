@@ -20,8 +20,8 @@ module.exports = {
       'vue': '../node_modules/vue/dist/vue.js',
       'vue-router': '../node_modules/vue-router/dist/vue-router.js',
       'vue-resource': '../node_modules/vue-resource/dist/vue-resource.js',
-      'markdown': '../node_modules/markdown/lib/markdown.js',
-      'markdown2': '../../node_modules/markdown/lib/markdown.js',
+      'markdown': '../node_modules/showdown/dist/showdown.min.js',
+      'markdown2': '../../node_modules/showdown/dist/showdown.min.js'
     }
   }
 }

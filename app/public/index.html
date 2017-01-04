@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Cil Blog</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 
 <body>
@@ -12,16 +13,10 @@
     <c-nav-bar></c-nav-bar>
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
-          <!--
-          <p>
-            <router-link :to="{ name: 'article'}">Go to Foo</router-link>
-            <router-link :to="{ name: 'detail', params: { id: 123 }}">Go to Bar</router-link>
-          </p>
-          -->
+        <div class="col-md-9">
           <router-view></router-view>
         </div>
-        <div class="col-md-4">xx</div>
+        <div class="col-md-3" style="background-color: #fff">xx</div>
       </div>
     </div>
   </div>

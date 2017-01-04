@@ -1,14 +1,26 @@
 <template>
-    <div>
-        <div id="content"></div>
+    <div id="article-detail">
+        <div class="title">
+            {{article.title}}
+        </div>
+        <div class="tag">
+            <span>时间 : 2017-1-1</span>
+            <span>作者 : Winfred</span>
+            <span>阅读 : 128</span>
+            <span>评论 : 15</span>
+        </div>
+        <div class="content" id="content">
+            {{article.content}}
+        </div>
     </div>
 </template>
 <script>
-    var Markdown = require('markdown2');
+    var Markdown = require('markdown2').Converter;
+    var converter = new Markdown();
     export default {
         data: function () {
             return {
-                article: null
+                article: {}
             }
         },
         created: function () {
@@ -25,9 +37,9 @@
         },
         methods: {
             update: function () {
-                document.getElementById('content').innerHTML = Markdown.toHTML(this.article.content);
+                document.getElementById('content').innerHTML = converter.makeHtml(this.article.content);
             },
-            getArticel: function() {
+            getArticel: function () {
                 var url = 'article/' + this.$route.params.id
                 this.$http.get(url).then((response) => {
                     this.article = response.data[0];
@@ -38,3 +50,24 @@
     }
 
 </script>
+<style>
+    #article-detail {
+        background-color: #fff;
+        padding: 15px;
+    }
+
+    #article-detail .title {
+        font-size:20px;
+        margin: 5px 0px;
+    }
+
+    #article-detail .tag {
+        font-size: 9px;
+        color: #999;
+        margin: 10px 0px;
+        text-align: right;
+    }
+    #article-detail .tag span {
+        margin-left: 10px;
+    }
+</style>
