@@ -17,16 +17,7 @@
 
 <script>
     export default {
-        data: function () {
-            return {
-                items: []
-            }
-        },
-        mounted: function () {
-            this.$http.get('/url').then((response) => {
-                this.items = response.body;
-            });
-        }
+        props: ['items']
     }
 
 </script>

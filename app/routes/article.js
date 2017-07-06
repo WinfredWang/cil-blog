@@ -2,18 +2,13 @@ var express = require('express');
 var router = express.Router();
 var ArticleDao = require('../model/article').ArticleDao;
 
-router.get('/url', function(req, res, next){
-  console.log('url');
-  res.jsonp([{name:'首页', url:'article'}, {name:'关于', url:'about'}]);
-});
-
-router.get('/article', function(req, res, next){
+router.get('/', function(req, res, next){
   ArticleDao.find(null, function(err, articles) {
     res.jsonp(articles);
   });
 });
 
-router.get('/article/:id', function(req, res, next){
+router.get('/:id', function(req, res, next){
   var id = req.params.id;
 console.log(id);
   ArticleDao.find(id, function(err, article) {

@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "webpack && node ./bin/www"
+    "start": "node ./app/bin/www",
+    "cs": "webpack && node ./app/bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
+    "express-session": "^1.14.2",
     "jade": "~1.11.0",
-    "markdown": "^0.5.0",
     "mongoose": "^4.7.4",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",

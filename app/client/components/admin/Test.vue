@@ -1,16 +1,17 @@
 <template>
-    <div> {{msg}}</div>
+    <div> about me {{msg}}</div>
 </template>
 
 <script>
     export default {
+        props: ['msg'],
         data: function () {
             return {
-                msg: 'Hello Componet!!'
+                msg:''
             }
         }, 
         mounted: function () {
-            console.log('hello');
+            console.log('about Componet');
         }
     }
 

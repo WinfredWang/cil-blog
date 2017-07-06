@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    var Markdown = require('markdown2').Converter;
+    var Markdown = require('markdown').Converter;
     var converter = new Markdown();
     export default {
         data: function () {

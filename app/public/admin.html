@@ -1,28 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <title>Cil Blog</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="css/markdown.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 
-<body class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
-  <div id="app" >
-    <div class="row main">
-      <div class="col-md-6 write clearfix">
-        <div >
-          <div class="title"><input v-model="title"></div>
-          <ul class="toolbar clearfix">
-            <li v-on:click="save">Post</li>
-            <li v-on:click="post">Draft</li>
-          </ul>
-          <div class="editor" style="padding-left: 40px;">
-            <textarea id="text-input" v-model="content" v-on:input="update" rows="6" cols="60"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 preview clearfix" style="padding-top: 20px;">
-        <div id="preview">
+<body>
+  <div id="app">
+    <c-nav-bar v-bind:items="urls"></c-nav-bar>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <router-view></router-view>
         </div>
       </div>
     </div>

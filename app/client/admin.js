@@ -1,27 +1,47 @@
 var Vue = require('vue');
+var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
-var Markdown = require('markdown').Converter;
-var converter = new Markdown();
+var Login = require('./components/admin/Login.vue')
+var Home = require('./components/admin/Home.vue')
+var Nav = require('./components/Navbar.vue')
 
+Vue.use(VueRouter)
 Vue.use(VueResource)
 
-var app = new Vue({
-    el: '#app',
-    data: {
-        title: '',
-        content: ''
-    },
-    mounted: function () {
+var router = new VueRouter({
+    routes:[
+        {   
+            path: '/login',
+            component: Login, 
+            name:"login"
+        },
+        {   
+            path: '/home',
+            component: Home, 
+            name:"home"
+        },
+        { 
+            path: '/',
+            redirect:'/login'
+         }
+    ]
+})
 
-    },
-    methods:{
-        update:function() {
-            document.getElementById('preview').innerHTML = converter.makeHtml(this.content);
-        },
-        save: function () {
-            this.$http.post('/save', { content: this.content, title: this.title }).then((response) => {
-                alert(response.body.msg);
-            });
-        },
-    }
-});
+
+var app = new Vue({
+  el: '#app',
+  data: {
+      urls:[]
+  },
+  router,
+  components: {
+    'c-nav-bar': Nav
+  },
+  created:function() {
+    this.$http.get('/nav/url?u=admin').then((response) => {
+            if (response.body) {
+                this.urls = response.body;
+            }
+    });
+  }
+})
