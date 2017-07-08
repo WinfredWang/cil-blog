@@ -3,13 +3,13 @@
         <div class="col-md-6 write clearfix">
             <div>
                 <div class="title">
-                    <input v-model="title" placeholder="title">
+                    <input v-model="article.title" placeholder="title">
                 </div>
                 <ul class="toolbar clearfix">
                     <li v-on:click="save">Post</li>
                 </ul>
                 <div class="editor" style="padding: 10PX;background-color: #fff;">
-                    <textarea id="text-input" v-model="content" v-on:input="update" rows="6" cols="60"></textarea>
+                    <textarea id="text-input" v-model="article.content" v-on:input="update" rows="6" cols="60"></textarea>
                 </div>
             </div>
         </div>
@@ -25,16 +25,24 @@ var converter = new Markdown();
 export default {
     data: function () {
         return {
-            content: '',
-            title: ''
+            article: {}
+        }
+    },
+    created: function () {
+        var id = this.$route.params.id;
+        if (id) {
+            this.$http.get('article/' + id).then((response) => {
+                this.article = response.data[0];
+                this.update();
+            });
         }
     },
     methods: {
         update: function () {
-            document.getElementById('preview').innerHTML = converter.makeHtml(this.content);
+            document.getElementById('preview').innerHTML = converter.makeHtml(this.article.content);
         },
         save: function () {
-            this.$http.post('article/save', { content: this.content, title: this.title }).then((response) => {
+            this.$http.post('article/save', { article: this.article }).then((response) => {
                 alert(response.body.msg);
             });
         },

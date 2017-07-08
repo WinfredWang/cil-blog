@@ -4,7 +4,7 @@ var VueResource = require('vue-resource');
 var Login = require('./components/admin/Login.vue')
 var Home = require('./components/admin/Home.vue');
 var Post = require('./components/admin/Post.vue')
-var Manage = require('./components/admin/manager.vue')
+var Manage = require('./components/admin/Manager.vue')
 var Nav = require('./components/Navbar.vue')
 
 Vue.use(VueRouter)

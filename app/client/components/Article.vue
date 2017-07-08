@@ -1,6 +1,6 @@
 <template>
     <div class="list-group" id="main-content">
-        <div class="list-group-item" v-for="item in articles">
+        <div class="list-group-item" v-for="item in articles" v-bind:key="item.id">
             <div class="list-group-item-heading article-title">
                 <router-link :to="{ name: 'detail', params: { id: item._id, article:item }}">
                     {{item.title}}
