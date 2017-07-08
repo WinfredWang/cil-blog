@@ -1,2 +1,2 @@
-/app/node_modules
-/app/.vscode
+node_modules
+.vscode

@@ -39,8 +39,8 @@ input,textarea {
 }
 
 textarea {
-    width: 620px;
-    height: 400px;
+    width: 564px;
+    height: 480px;
     resize: none;
     color: #2f2f2f;
     font-size: 18px;
@@ -51,7 +51,7 @@ textarea {
 .preview {
     background-color: #fcfaf2;
     overflow-y: auto;
-    min-height:400px ;
+    min-height:600px ;
     font-size: 16px;
     font-weight: normal;
     line-height: 30px;

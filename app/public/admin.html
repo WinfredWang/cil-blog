@@ -5,19 +5,13 @@
   <meta charset="utf-8">
   <title>Cil Blog</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/markdown.css">
   <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 
 <body>
   <div id="app">
-    <c-nav-bar v-bind:items="urls"></c-nav-bar>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <router-view></router-view>
-        </div>
-      </div>
-    </div>
+      <router-view></router-view>
   </div>
   <script src="/dist/admin.bundle.js"></script>
 </body>

@@ -16,50 +16,52 @@
             </div>
             <div class="form-group clearfix">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default" v-on:click=login>Sign in</button>
+                    <button type="submit" class="btn btn-default" v-on:click="login">Sign in</button>
                 </div>
             </div>
-
+    
         </div>
     </form>
 </template>
 
 <script>
-    export default {
-        data: function () {
-            return {
-                pwd: '',
-                email: '',
-                invald: false
+export default {
+    props: ['bus'],
+    data: function () {
+        return {
+            pwd: '',
+            email: '',
+            invald: false
+        }
+    },
+    mounted: function () {
+        this.$http.post('/admin/validate', { email: this.email, pwd: this.pwd }).then((response) => {
+            if (response.body.status == 0) {
+                this.$router.push({ path: '/home/manage' });
             }
-        },
-        mounted: function () {
-            this.$http.post('/admin/islogin', { email: this.email, pwd: this.pwd }).then((response) => {
+        });
+    },
+    methods: {
+        login: function () {
+            this.$http.post('/admin/login', { email: this.email, pwd: this.pwd }).then((response) => {
                 if (response.body.status == 0) {
-                    this.$router.push({ path: '/home' })
+                    this.invald = false;
+                    this.$router.push({ path: '/home/manage' });
+                } else {
+                    this.invald = true;
                 }
             });
-        },
-        methods: {
-            login: function () {
-                this.$http.post('/admin/login', { email: this.email, pwd: this.pwd }).then((response) => {
-                    if (response.body.status == 0) {
-                        this.invald = false;
-                        this.$router.push({ path: '/home' })
-                    } else {
-                        this.invald = true;
-                    }
-                });
-            }
         }
     }
+}
 
 </script>
 <style>
-    #login {
-        margin-top: 100px;
-    }
-    #login .form-group {
-        margin-top: 10px; 
-    }
+#login {
+    margin-top: 100px;
+}
+
+#login .form-group {
+    margin-top: 10px;
+}
 </style>

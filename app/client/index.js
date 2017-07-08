@@ -5,7 +5,6 @@ var Navbar = require('./components/Navbar.vue')
 var Article = require('./components/Article.vue')
 var Detail = require('./components/Detail.vue')
 var About = require('./components/About.vue')
-var Post = require('./components/admin/post.vue')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -23,11 +22,8 @@ var router = new VueRouter({
 		path: '/about',
 		component: About,
 		name: "about"
-	}, {
-		path: '/post',
-		component: Post,
-		name: "post"
-	}, {
+	},
+	{
 		path: '/',
 		redirect: '/article'
 	}, {
@@ -45,7 +41,7 @@ new Vue({
 	components: {
 		'c-nav-bar': Navbar
 	},
-	created: function() {
+	created: function () {
 		this.$http.get('/nav/url').then((response) => {
 			this.urls = response.body;
 		});
