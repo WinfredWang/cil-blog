@@ -7,9 +7,38 @@
 
 <body>
     <div id="app">
+        <input type="text" id="name">
+        <div id="show"></div>
     </div>
 
     <script>
+        var obj = {};
+        var inputDom = document.getElementById('name');
+        var showDom = document.getElementById('show');
+
+        // Object.defineProperty(obj, "name", {
+        //     enumerable: true,
+        //     configurable: false,
+        //     set: function (newVal) {
+        //         inputDom.value = newVal;
+        //         showDom.innerHTML = newVal;
+        //     }
+        // });
+
+        var obj = new Proxy({}, {
+            get: function (target, key, receiver) {
+                console.log(`getting ${key}!`);
+                return Reflect.get(target, key, receiver);
+            },
+            set: function (target, key, value, receiver) {
+                console.log(`setting ${key}!`);
+                return Reflect.set(target, key, value, receiver);
+            }
+        });
+
+        inputDom.addEventListener('keyup', function (e) {
+            obj.name = inputDom.value
+        })
     </script>
 </body>
 
