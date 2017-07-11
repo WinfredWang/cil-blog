@@ -2,11 +2,11 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    index: './app/client/index.js',
-    admin: './app/client/admin.js'
+    index: './client/index.js',
+    admin: './client/admin.js'
   },
   output: {
-    path: path.join(__dirname, './app/public/dist'),
+    path: path.join(__dirname, './server/public/dist'),
     filename: '[name].bundle.js'
   },
   module: {

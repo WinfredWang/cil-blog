@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app/bin/www",
-    "cs": "webpack && node ./app/bin/www"
+    "start": "node ./server/bin/www",
+    "cs": "webpack && node ./server/bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
