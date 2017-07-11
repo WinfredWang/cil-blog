@@ -1,7 +1,8 @@
-const crypto = require('crypto');
+//const crypto = require('crypto');
+import * as crypto from "crypto";
 
 const TOKEN = "c-token"
-function encodeToken(str, time) {
+function encodeToken(str: string, time:any) {
     let md5 = crypto.createHash('md5');
     let content = str + time;
     md5.update(content);
@@ -9,9 +10,8 @@ function encodeToken(str, time) {
     return md5.digest('hex');
 }
 
-
-module.exports = {
-    validateUser: function (req, res) {
+var validator =  {
+    validateUser: function (req: any, res: any) {
         let token = req.cookies[TOKEN];
         if (token && req.session.data && (token == req.session.data.token)) {
             req.session.data.time = new Date().getTime();
@@ -20,11 +20,11 @@ module.exports = {
 
         return false;
     },
-    login: function (email, req, res) {
+    login: function (email: string, req: any, res: any) {
         let time = new Date().getTime();
         let token = encodeToken(email, time);
-        res.clearCookie(TOKEN);  
-        res.cookie(TOKEN, token, { maxAge: 1000 * 60 * 60, httpOnly: true});
+        res.clearCookie(TOKEN);
+        res.cookie(TOKEN, token, { maxAge: 1000 * 60 * 60, httpOnly: true });
 
         req.session.data = {
             token: token,
@@ -32,3 +32,5 @@ module.exports = {
         };
     }
 };
+
+export = validator;

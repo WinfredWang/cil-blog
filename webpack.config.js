@@ -6,7 +6,7 @@ module.exports = {
     admin: './client/admin.js'
   },
   output: {
-    path: path.join(__dirname, './server/public/dist'),
+    path: path.join(__dirname, './dist/public/js'),
     filename: '[name].bundle.js'
   },
   module: {

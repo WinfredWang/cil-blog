@@ -1,10 +1,10 @@
-var mongo = require('./config').mongo;
+import { mongoose } from './config';
 
-var ArticleSchema = mongo.Schema({
+var ArticleSchema = new mongoose.Schema({
     title: String,
     content: String
 })
-var articleModel = mongo.model('Article', ArticleSchema)
+var articleModel = mongoose.model('Article', ArticleSchema)
 
 var ArticleDao = {
     add: function (article, callback) {
@@ -43,4 +43,4 @@ var ArticleDao = {
 };
 
 
-exports.ArticleDao = ArticleDao;
+export { ArticleDao };

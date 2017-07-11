@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var session = require('express-session');
+import * as express from "express";
+import * as userValidator from "./login";
+import * as session from "express-session";
 
-const userValidator = require('./login');
+var router = express.Router();
 
 router.post('/login', function (req, res, next) {
   var email = req.param('email');
@@ -26,4 +26,4 @@ router.post('/validate', function (req, res, next) {
   }
 });
 
-module.exports = router;
+export = router;

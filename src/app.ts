@@ -1,14 +1,15 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var session = require('express-session')
-var cookie = require('cookie-parser');
+import * as express from "express";
+import * as path from "path";
+import * as logger from "morgan";
+import * as bodyParser from "body-parser";
+import * as session from "express-session";
+import * as cookie from "cookie-parser";
+import * as favicon from "serve-favicon";
 
 var article = require('./routes/article');
 var admin = require('./routes/admin');
-var nav = require('./routes/nav');
+
+import * as nav from "./routes/nav";
 
 var app = express();
 
@@ -48,4 +49,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export = app;

@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var ArticleDao = require('../model/article').ArticleDao;
+import * as express from "express";
+import { ArticleDao } from '../model/article';
 
+var router = express.Router();
 router.get('/', function (req, res, next) {
   ArticleDao.find(null, function (err, articles) {
     res.jsonp(articles);
@@ -39,4 +39,4 @@ router.delete('/del/:id', function (req, res, next) {
   });
 });
 
-module.exports = router;
+export = router;

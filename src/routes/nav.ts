@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const userValidator = require('./login');
+import * as express from "express";
+import * as userValidator from "./login";
+
+let router = express.Router();
 
 router.get('/url', function (req, res, next) {
     var user = req.query.u;
@@ -12,4 +13,4 @@ router.get('/url', function (req, res, next) {
     }
 });
 
-module.exports = router;
+export = router;
