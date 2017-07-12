@@ -1,7 +1,7 @@
 ## how to start
 - start mongodb
 - npm install
-- npm run cs
+- npm run start
 
 
 ## technology stack
