@@ -1,10 +1,10 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
-var Navbar = require('./components/Navbar.vue')
-var Article = require('./components/Article.vue')
-var Detail = require('./components/Detail.vue')
-var About = require('./components/About.vue')
+var Navbar = require('../components/Navbar.vue')
+var Article = require('../components/Article.vue')
+var Detail = require('../components/Detail.vue')
+var About = require('../components/About.vue')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)

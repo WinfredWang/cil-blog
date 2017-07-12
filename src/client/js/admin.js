@@ -1,11 +1,11 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
-var Login = require('./components/admin/Login.vue')
-var Home = require('./components/admin/Home.vue');
-var Post = require('./components/admin/Post.vue')
-var Manage = require('./components/admin/Manager.vue')
-var Nav = require('./components/Navbar.vue')
+var Login = require('../components/admin/Login.vue')
+var Home = require('../components/admin/Home.vue');
+var Post = require('../components/admin/Post.vue')
+var Manage = require('../components/admin/Manager.vue')
+var Nav = require('../components/Navbar.vue')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)

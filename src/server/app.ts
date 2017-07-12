@@ -5,10 +5,8 @@ import * as bodyParser from "body-parser";
 import * as session from "express-session";
 import * as cookie from "cookie-parser";
 import * as favicon from "serve-favicon";
-
-var article = require('./routes/article');
-var admin = require('./routes/admin');
-
+import * as article from "./routes/article";
+import * as admin from "./routes/admin";
 import * as nav from "./routes/nav";
 
 var app = express();
@@ -19,7 +17,7 @@ app.use(logger('dev'));
 app.use(cookie())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
 app.use(session({
   secret: 'keyboard cat',
@@ -34,12 +32,11 @@ app.use('/admin', admin);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
-  err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err:any, req:any, res:any, next:any) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

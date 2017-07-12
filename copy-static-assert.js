@@ -3,8 +3,8 @@ var path = require('path');
 var chokidar = require('chokidar');
 
 const config = {
-    sourceDir: 'src/public', // 静态资源根目录
-    destDir: 'dist/public',  // 复制目标目录
+    sourceDir: 'src/client', // 静态资源根目录
+    destDir: 'dist/client',  // 复制目标目录
     exclude: [  // 哪些目录不复制，当前只支持第一层目录
         'js', 
         'ts',

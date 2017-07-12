@@ -9,7 +9,7 @@
     "webpack": "webpack --config webpack.config.js",
     "tsc": "tsc",
     "copy": "node copy-static-assert.js",
-    "copy-w": "node copy-static-assert.js -w
+    "copy-w": "node copy-static-assert.js -w"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -40,6 +40,8 @@
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
+    "chokidar": "^1.7.0",
+    "concurrently": "^3.5.0",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "file-loader": "^0.9.0",
