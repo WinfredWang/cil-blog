@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "tsc && webpack && npm run copy && node ./dist/server.js",
-    "build": "tsc",
-    "webpack": "webpack",
-    "server": " node ./dist/server.js",
-    "copy": "node copy-static-asset.js"
+    "start": "npm run build && npm run server",
+    "server": "node ./dist/server.js",
+    "build": "concurrently  \"npm run webpack\" \"npm run tsc\" \"npm run copy\"",
+    "webpack": "webpack --config webpack.config.js",
+    "tsc": "tsc",
+    "copy": "node copy-static-assert.js",
+    "copy-w": "node copy-static-assert.js -w
   },
   "dependencies": {
     "body-parser": "~1.15.2",
