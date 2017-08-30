@@ -8,6 +8,8 @@ import * as favicon from "serve-favicon";
 import * as article from "./routes/article";
 import * as admin from "./routes/admin";
 import * as nav from "./routes/nav";
+import { xx } from './routes/controller'
+import { register } from './decorator'
 
 var app = express();
 
@@ -25,18 +27,19 @@ app.use(session({
   saveUninitialized: true
 }))
 
-app.use('/article', article);
+register(app, [xx])
+//app.use('/article', article);
 app.use('/nav', nav);
 app.use('/admin', admin);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   next(err);
 });
 
 // error handler
-app.use(function(err:any, req:any, res:any, next:any) {
+app.use(function (err: any, req: any, res: any, next: any) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

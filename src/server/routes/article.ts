@@ -3,9 +3,19 @@ import { ArticleDao } from '../model/article';
 
 var router = express.Router();
 router.get('/', function (req, res, next) {
-  ArticleDao.find(null, function (err, articles) {
-    res.jsonp(articles);
+
+  var p = new Promise(function (resolve, reject) {
+    ArticleDao.find(null, function (err, articles) {
+      resolve(articles);
+      if (err) {
+        reject(err)
+      }
+    });
   });
+  p.then(function (value) {
+    console.log('xx');
+    res.jsonp(value)
+  })
 });
 
 router.get('/:id', function (req, res, next) {
