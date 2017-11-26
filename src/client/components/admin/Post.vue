@@ -31,7 +31,7 @@ export default {
     created: function () {
         var id = this.$route.params.id;
         if (id) {
-            this.$http.get('article/' + id).then((response) => {
+            this.$http.get('/article/' + id).then((response) => {
                 this.article = response.data[0];
                 this.update();
             });
@@ -42,7 +42,7 @@ export default {
             document.getElementById('preview').innerHTML = converter.makeHtml(this.article.content);
         },
         save: function () {
-            this.$http.post('article/save', { article: this.article }).then((response) => {
+            this.$http.post('/article/save', { article: this.article }).then((response) => {
                 alert(response.body.msg);
             });
         },

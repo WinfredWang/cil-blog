@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         del: function (item, index) {
-            this.$http.delete('/article/del/' + item._id).then((response) => {
+            this.$http.delete('/article/' + item._id).then((response) => {
                 if (response.body.msg == 'sucesss') {
                     this.articles.splice(index, 1);
                 }

@@ -26,42 +26,45 @@
 
 <script>
 export default {
-    props: ['bus'],
-    data: function () {
-        return {
-            pwd: '',
-            email: '',
-            invald: false
+  props: ["bus"],
+  data: function() {
+    return {
+      pwd: "",
+      email: "",
+      invald: false
+    };
+  },
+  mounted: function() {
+    this.$http
+      .post("/admin/validate", { email: this.email, pwd: this.pwd })
+      .then(response => {
+        if (response.body.status == 0) {
+          this.$router.push({ path: "/home/manage" });
         }
-    },
-    mounted: function () {
-        this.$http.post('/admin/validate', { email: this.email, pwd: this.pwd }).then((response) => {
-            if (response.body.status == 0) {
-                this.$router.push({ path: '/home/manage' });
-            }
+      });
+  },
+  methods: {
+    login: function() {
+      this.$http
+        .post("/admin/login", { user: { email: this.email, pwd: this.pwd } })
+        .then(response => {
+          if (response.body.status == 0) {
+            this.invald = false;
+            this.$router.push({ path: "/home/manage" });
+          } else {
+            this.invald = true;
+          }
         });
-    },
-    methods: {
-        login: function () {
-            this.$http.post('/admin/login', { email: this.email, pwd: this.pwd }).then((response) => {
-                if (response.body.status == 0) {
-                    this.invald = false;
-                    this.$router.push({ path: '/home/manage' });
-                } else {
-                    this.invald = true;
-                }
-            });
-        }
     }
-}
-
+  }
+};
 </script>
 <style>
 #login {
-    margin-top: 100px;
+  margin-top: 100px;
 }
 
 #login .form-group {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 </style>

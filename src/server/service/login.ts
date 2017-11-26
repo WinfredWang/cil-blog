@@ -1,8 +1,7 @@
-//const crypto = require('crypto');
 import * as crypto from "crypto";
 
 const TOKEN = "c-token"
-function encodeToken(str: string, time:any) {
+function encodeToken(str: string, time: any) {
     let md5 = crypto.createHash('md5');
     let content = str + time;
     md5.update(content);
@@ -10,7 +9,7 @@ function encodeToken(str: string, time:any) {
     return md5.digest('hex');
 }
 
-var validator =  {
+var validator = {
     validateUser: function (req: any, res: any) {
         let token = req.cookies[TOKEN];
         if (token && req.session.data && (token == req.session.data.token)) {
