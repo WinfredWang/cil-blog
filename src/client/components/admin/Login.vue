@@ -5,7 +5,7 @@
           <el-input v-model="email"></el-input>
         </el-form-item>
         <el-form-item label="Password">
-          <el-input v-model="pwd"></el-input>
+          <el-input type="password" auto-complete="off" v-model="pwd"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="login">Login</el-button>

@@ -37,7 +37,7 @@ var router = new VueRouter({
 new Vue({
     el: '#app',
     data: {
-        urls: [{ name: '首页', url: 'article' }, { name: '关于', url: 'about' }]
+        urls: [{ name: '关于', url: 'about' }, { name: '首页', url: 'article' }]
     },
     router,
     components: {

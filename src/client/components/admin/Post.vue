@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-row :gutter="20">
+        <el-row >
             <el-col :span="12">
                 <div class="title">
                     <input type="text" v-model="article.title" placeholder="title">

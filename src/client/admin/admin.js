@@ -53,7 +53,7 @@ var bus = new Vue()
 var app = new Vue({
     el: '#app',
     data: {
-        urls: [{ name: '首页', url: 'manage' }, { name: '写博客', url: 'post' }]
+        urls: [{ name: '写博客', url: 'post' }, { name: '首页', url: 'manage' }]
     },
     router
 });
