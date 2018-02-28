@@ -24,7 +24,6 @@
             }
         },
         created: function () {
-            debugger;
             var rA = this.$route.params.article;
             if (rA) {
                 this.article = this.$route.params.article;
@@ -33,19 +32,24 @@
             }
         },
         mounted: function () {
-            this.update();
+            this.initMarkdown();
+            this.updateReadTime();
         },
         methods: {
-            update: function () {
+            initMarkdown: function () {
                 document.getElementById('content').innerHTML = converter.makeHtml(this.article.content);
             },
             getArticel: function () {
                 var url = 'article/' + this.$route.params.id
                 this.$http.get(url).then((response) => {
                     this.article = response.data[0];
-                    this.update();
+                    this.initMarkdown();
                 });
+            },
+            updateReadTime: function() {
+                this.$http.post('/article/' + this.article._id + "/readtime", { article: { readTime: this.article.readTime} })
             }
+
         }
     }
 

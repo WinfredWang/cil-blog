@@ -1,34 +1,15 @@
 <template>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Cil Blog</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li v-for="item in items">
-                        <router-link :to="{ name: item.url}">{{item.name}}</router-link>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div>
+      <el-menu mode="horizontal">
+        <el-menu-item v-for="item in items" v-bind:key="item.url" :index="item.url">
+          <router-link :to="{ name: item.url}">{{item.name}}</router-link>
+        </el-menu-item>
+      </el-menu>
+    </div>
 </template>
 
 <script>
-    export default {
-        props: ['items']
-    }
-
+export default {
+  props: ["items"]
+};
 </script>
-
-<style>
-.nav>li>.router-link-active {
-    border-bottom: 3px solid #ff9d00;
-    color:#ff9d00 !important
-}
-nav .navbar-header .navbar-brand {
-     color:#ff9d00;
-}
-
-</style>

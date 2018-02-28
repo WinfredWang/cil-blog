@@ -1,3 +1,24 @@
-body {
-    background: #eceff1;
+body, html {
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+    font-weight: 400;
+    margin: 0px;
+    padding: 0px;
+    background: #f4f8fa;
+}
+a {
+    text-decoration: none;
+}
+.nav>li>.router-link-active {
+    border-bottom: 3px solid #ff9d00;
+    color:#ff9d00 !important
+}
+nav .navbar-header .navbar-brand {
+     color:#ff9d00;
+}   
+.main {
+    width: 90%;
+    margin: 0 auto;
+}
+.el-header{
+    padding: 0px;
 }

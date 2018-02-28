@@ -2,8 +2,13 @@ import { mongoose } from './config';
 
 var ArticleSchema = new mongoose.Schema({
     title: String,
-    content: String
-})
+    content: String,
+    status: Number,
+    readTime: Number,
+    postDate: Date,
+    lastModifyDate: Date
+});
+
 var articleModel = mongoose.model('Article', ArticleSchema)
 
 var ArticleDao = {
@@ -25,7 +30,7 @@ var ArticleDao = {
         articleModel.findById(id, callback);
     },
     update: function (id, article, callback) {
-        articleModel.update({ '_id': id }, { $set: {title:article.title, content:article.content} }, callback);
+        articleModel.update({ '_id': id }, { $set: { title: article.title, content: article.content } }, callback);
     },
     addOrUpdate: function (article, callback) {
         if (article._id) {

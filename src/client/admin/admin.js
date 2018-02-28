@@ -1,12 +1,14 @@
-var Vue = require('vue');
-var VueRouter = require('vue-router');
-var VueResource = require('vue-resource');
-var Login = require('../components/admin/Login.vue')
-var Home = require('../components/admin/Home.vue');
-var Post = require('../components/admin/Post.vue')
-var Manage = require('../components/admin/Manager.vue')
-var Nav = require('../components/Navbar.vue')
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
+import Login from '../components/admin/Login.vue';
+import Home from '../components/admin/Home.vue';
+import Post from '../components/admin/Post.vue';
+import Manage from '../components/admin/Manager.vue';
+import Nav from '../components/Navbar.vue';
+import ElementUI from 'element-ui';
 
+Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
@@ -51,16 +53,7 @@ var bus = new Vue()
 var app = new Vue({
     el: '#app',
     data: {
-        urls: []
+        urls: [{ name: '首页', url: 'manage' }, { name: '写博客', url: 'post' }]
     },
-    router,
-    methods: {
-        getUrls: function () {
-            this.$http.get('/nav/url?u=admin').then((response) => {
-                if (response.body) {
-                    this.urls = response.body;
-                }
-            });
-        }
-    }
+    router
 });

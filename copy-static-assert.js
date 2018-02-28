@@ -6,7 +6,7 @@ const config = {
     sourceDir: 'src/client', // 静态资源根目录
     destDir: 'dist/client',  // 复制目标目录
     exclude: [  // 哪些目录不复制，当前只支持第一层目录
-        'js', 
+        'js',
         'ts',
         'components'
     ]

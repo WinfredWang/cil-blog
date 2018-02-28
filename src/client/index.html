@@ -2,25 +2,29 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Cil Blog</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="css/common.css">
+    <meta charset="utf-8">
+    <title>Cil Blog</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/common.css">
 </head>
 
 <body>
-  <div id="app">
-    <c-nav-bar v-bind:items="urls"></c-nav-bar>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9">
-          <router-view></router-view>
-        </div>
-        <div class="col-md-3" style="background-color: #fff">xx</div>
-      </div>
+    <div id="app">
+        <el-container>
+            <el-header>
+                <c-nav-bar v-bind:items="urls"></c-nav-bar>
+            </el-header>
+            <el-container class="main">
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+            </el-container>
+            <el-footer>
+                <div></div>
+            </el-footer>
+        </el-container>
     </div>
-  </div>
-  <script src="/js/index.bundle.js"></script>
+    <script src="js/index.bundle.js"></script>
 </body>
 
 </html>
