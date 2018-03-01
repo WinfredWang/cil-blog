@@ -54,7 +54,7 @@
     }
 
 </script>
-<style>
+<style scoped>
     #article-detail {
         background-color: #fff;
         padding: 15px;

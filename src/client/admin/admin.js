@@ -1,10 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
-import Login from '../components/admin/Login.vue';
 import Home from '../components/admin/Home.vue';
 import Post from '../components/admin/Post.vue';
-import Manage from '../components/admin/Manager.vue';
+import ArticelManager from '../components/admin/ArticelManager.vue';
 import Nav from '../components/Navbar.vue';
 import ElementUI from 'element-ui';
 
@@ -15,45 +14,30 @@ Vue.use(VueResource)
 var router = new VueRouter({
     routes: [
         {
-            path: '/login',
-            component: Login,
-            name: "login"
-        },
-        {
             path: '/home',
             component: Home,
-            name: "home",
-            children: [
-                {
-                    path: 'manage',
-                    name: "manage",
-                    component: Manage
-                },
-                {
-                    path: 'post',
-                    name: "post",
-                    component: Post
-                },
-                {
-                    path: '*',
-                    redirect: 'manage'
-                }
-            ]
+            name: "home"
+        }, 
+        {
+            path: '/post',
+            name: "post",
+            component: Post
         },
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/home'
         }
     ]
 });
 
 Vue.component('c-nav-bar', Nav);
+Vue.component('articel-manager', ArticelManager);
 
 var bus = new Vue()
 var app = new Vue({
     el: '#app',
     data: {
-        urls: [{ name: '写博客', url: 'post' }, { name: '首页', url: 'manage' }]
+        urls: [{ name: '写博客', url: 'post' }, { name: '首页', url: 'home' }]
     },
     router
 });

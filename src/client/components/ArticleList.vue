@@ -33,14 +33,7 @@ export default {
   }
 };
 </script>
-<style>
-#main-content .article-title a {
-  color: #000000;
-}
-#main-content .article-title:hover a {
-  color: #ff9d00;
-  text-decoration: none;
-}
+<style scoped>
 #main-content .article-title {
   font-size: 25px;
   cursor: pointer;

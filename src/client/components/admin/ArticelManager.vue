@@ -1,13 +1,18 @@
 <template>
-    <div class="articel-manager">
-        <el-card v-for="(item, index) in articles" v-bind:key="item.id">
-            <div class="row">
-                <div class="item title">{{item.title}}</div>
-                <div class="item link"><a href="javascript:void" v-on:click="del(item, index)">delete</a></div>
-                <div class="item link"><a href="javascript:void" v-on:click="edit(item)">edit</a></div>
-            </div>
-        </el-card>
-    </div>
+  <div class="articel-manager">
+      <el-table :data="articles" style="width: 90%" stripe>
+        <el-table-column prop="title" label="标题" width=""></el-table-column>
+        <el-table-column prop="status" label="状态" width="100"></el-table-column>
+        <el-table-column prop="address" label="评论数" width="80"></el-table-column>
+        <el-table-column prop="readTime" label="阅读数" width="80"></el-table-column>
+        <el-table-column fixed="right" label="操作" width="150">
+          <template slot-scope="scope">
+            <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+            <el-button @click="del(scope.row, index)" type="text" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+  </div>
 </template>
 
 <script>
@@ -37,7 +42,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .articel-manager {
   margin: 10px auto;
   width: 80%;

@@ -2,29 +2,12 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": false,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "sourceMap": true,
-        "outDir": "dist",
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "node_modules/*",
-                "src/server/types/*"
-            ]
-        },
-        "lib": [
-            "dom",
-            "es5",
-            "es2015.promise"
-        ]
+        "outDir": "dist"
     },
     "include": [
         "src/server/**/*"
-    ],
-    "typeAcquisition": {
-        "enable": true
-    }
-  }
+    ]
+}

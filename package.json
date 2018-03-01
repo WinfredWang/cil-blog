@@ -10,7 +10,7 @@
     "build-w": "concurrently  \"npm run webpack-w\" \"npm run copy-w\"",
     "webpack": "webpack --config webpack.config.js",
     "webpack-w": "webpack --config webpack.config.js --watch",
-    "tsc": "tsc -p tsconfig-server.json",
+    "tsc": "tsc",
     "copy": "node copy-static-assert.js",
     "copy-w": "node copy-static-assert.js -w",
     "start:mongo": "node mongodb.js"

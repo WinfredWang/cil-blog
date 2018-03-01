@@ -3,7 +3,8 @@ var path = require('path');
 module.exports = {
   entry: {
     admin: './src/client/admin/admin.js',
-    index: './src/client/index.js'
+    index: './src/client/index.js',
+    login: './src/client/admin/login.js',
   },
   output: {
     path: path.join(__dirname, './dist/client/js'),
