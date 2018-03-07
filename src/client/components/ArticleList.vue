@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted: function() {
-    this.$http.get("/article").then(response => {
+    this.$http.get("/route/articles").then(response => {
       this.articles = response.body;
     });
   }

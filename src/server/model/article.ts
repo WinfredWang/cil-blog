@@ -1,4 +1,6 @@
 import { mongoose } from './config';
+import { Article } from './model';
+import { resolve } from 'url';
 
 var ArticleSchema = new mongoose.Schema({
     title: String,
@@ -9,43 +11,74 @@ var ArticleSchema = new mongoose.Schema({
     lastModifyDate: Date
 });
 
-var articleModel = mongoose.model('Article', ArticleSchema)
+var articleModel = mongoose.model('Article', ArticleSchema);
 
-var ArticleDao = {
-    add: function (article, callback) {
+class ArticleDAO {
+    private articleModel;
+    constructor() {
+        this.articleModel = mongoose.model('Article', ArticleSchema);
+    }
+
+    add(article) {
         var a = new articleModel(article);
-        a.save(callback);
-    },
-    remove: function (id, callback) {
-        articleModel.findByIdAndRemove(id, callback);
-    },
-    find: function (id, callback) {
-        if (id) {
-            articleModel.find({ '_id': id }, callback)
-        } else {
-            articleModel.find(callback);
-        }
-    },
-    findById: function (id, callback) {
-        articleModel.findById(id, callback);
-    },
-    update: function (id, article, callback) {
-        articleModel.update({ '_id': id }, { $set: { title: article.title, content: article.content } }, callback);
-    },
-    addOrUpdate: function (article, callback) {
-        if (article._id) {
-            articleModel.findById(article._id, (err, a) => {
+        return new Promise((resolve, reject) => {
+            a.save(err => {
                 if (err) {
-                    this.add(article._id, callback);
+                    reject(err);
+                    return;
+                }
+                resolve();
+            });
+        });
+    }
+
+    find(): Promise<Article[]> {
+        return new Promise((resolve, reject) => {
+            this.articleModel.find((err, articles) => {
+                if (err) {
+                    reject(err)
                 } else {
-                    this.update(article._id, article, callback);
+                    resolve(articles);
+                }
+            });
+        });
+    }
+
+    update(id, article): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.articleModel.update({ '_id': id }, { $set: { title: article.title, content: article.content } }, err => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+
+    findById(id: string): Promise<Article> {
+        return new Promise((resolve, reject) => {
+            this.articleModel.findById(id, (err, a) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(a);
                 }
             })
-        } else {
-            this.add(article, callback);
-        }
+        });
     }
-};
 
+    delete(id) {
+        return new Promise((resolve, reject) => {
+            articleModel.findByIdAndRemove(id, err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+}
 
-export { ArticleDao };
+export let articleDAO = new ArticleDAO();

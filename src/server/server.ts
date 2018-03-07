@@ -7,20 +7,20 @@ import * as session from "express-session";
 import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
 import { AdminService } from "./service/admin";
-import { NavService } from "./service/nav";
 
 const numCPUs = require('os').cpus().length;
 
 function initExpress(app) {
-    app.use(express.static(path.join(__dirname, 'client')));
-
     app.use(session({
         secret: 'keyboard cat',
         resave: false,
         saveUninitialized: true
     }))
 
-    RegisterService(app, [NavService, ArticleService, AdminService]);
+    //app.use(Authentication);
+    RegisterService(app, [ArticleService, AdminService]);
+
+    app.use(express.static(path.join(__dirname, 'client')));
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
@@ -80,22 +80,7 @@ function createServer(app) {
         console.log('Listening on ' + bind);
     }
 }
-// if (cluster.isMaster) {
-//     console.log(`主进程 ${process.pid} 正在运行`);
 
-//     // 衍生工作进程。
-//     for (let i = 0; i < numCPUs; i++) {
-//       cluster.fork();
-//     }
-
-//     cluster.on('exit', (worker, code, signal) => {
-//       console.log(`工作进程 ${worker.process.pid} 已退出`);
-//     });
-//   } else {
-//     
-
-//     console.log(`工作进程 ${process.pid} 已启动`);
-//   }
 let app = express();
 initExpress(app);
 createServer(app);

@@ -9,8 +9,8 @@ function encodeToken(str: string, time: any) {
     return md5.digest('hex');
 }
 
-var validator = {
-    validateUser: function (req: any, res: any) {
+export var Authentication = {
+    isValidateUser: function (req: any, res: any) {
         let token = req.cookies[TOKEN];
         if (token && req.session.data && (token == req.session.data.token)) {
             req.session.data.time = new Date().getTime();
@@ -30,6 +30,5 @@ var validator = {
             time: time
         };
     }
-};
+}
 
-export = validator;

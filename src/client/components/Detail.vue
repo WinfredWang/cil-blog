@@ -40,14 +40,14 @@
                 document.getElementById('content').innerHTML = converter.makeHtml(this.article.content);
             },
             getArticel: function () {
-                var url = 'article/' + this.$route.params.id
+                var url = '/route/article/' + this.$route.params.id
                 this.$http.get(url).then((response) => {
                     this.article = response.data[0];
                     this.initMarkdown();
                 });
             },
             updateReadTime: function() {
-                this.$http.post('/article/' + this.article._id + "/readtime", { article: { readTime: this.article.readTime} })
+                //this.$http.post('/article/' + this.article._id + "/readtime", { article: { readTime: this.article.readTime} })
             }
 
         }

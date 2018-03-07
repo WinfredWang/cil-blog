@@ -12,7 +12,7 @@ export default {
     };
   },
   created: function() {
-    this.$http.post("/admin/validate").then(response => {
+    this.$http.post("/route/admin/validate").then(response => {
       if (response.body.status !== 0) {
         location.href="/admin/login.html";
       }

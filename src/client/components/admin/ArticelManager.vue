@@ -24,14 +24,14 @@ export default {
     };
   },
   mounted: function() {
-    this.$http.get("/article").then(response => {
+    this.$http.get("/route/articles").then(response => {
       this.articles = response.body;
     });
   },
   methods: {
     del: function(item, index) {
-      this.$http.delete("/article/" + item._id).then(response => {
-        if (response.body.msg == "sucesss") {
+      this.$http.delete("/route/article/" + item._id).then(response => {
+        if (response.body.msg == "success") {
           this.articles.splice(index, 1);
         }
       });

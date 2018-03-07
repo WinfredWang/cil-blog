@@ -8,13 +8,13 @@ Vue.use(VueResource)
 new Vue({
     el: '#login',
     data: {
-        pwd: "",
-        email: "",
+        name: "",
+        password: "",
         invald: false
     },
     mounted: function () {
         this.$http
-            .post("/admin/validate", { email: this.email, pwd: this.pwd })
+            .post("/route/admin/validate", { name: this.name, password: this.password })
             .then(response => {
                 if (response.body.status == 0) {
                     location.href = "/admin"
@@ -24,7 +24,7 @@ new Vue({
     methods: {
         login: function () {
             this.$http
-                .post("/admin/login", { user: { email: this.email, pwd: this.pwd } })
+                .post("/route/admin/login", { user: { name: this.name, password: this.password } })
                 .then(response => {
                     if (response.body.status == 0) {
                         this.invald = false;

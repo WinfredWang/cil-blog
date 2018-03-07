@@ -35,8 +35,8 @@ export default {
   created: function() {
     var id = this.$route.params.id;
     if (id) {
-      this.$http.get("/article/" + id).then(response => {
-        this.article = response.data[0];
+      this.$http.get("/route/article/" + id).then(response => {
+        this.article = response.data;
         this.update();
       });
     }
@@ -48,9 +48,19 @@ export default {
       );
     },
     save: function() {
-      this.$http.post("/article", { article: this.article }).then(response => {
-        alert(response.body.msg);
-      });
+      if (this.article._id) {
+        this.$http
+          .put("/route/article", { article: this.article })
+          .then(response => {
+            alert(response.body.msg);
+          });
+      } else {
+        this.$http
+          .post("/route/article", { article: this.article })
+          .then(response => {
+            alert(response.body.msg);
+          });
+      }
     }
   }
 };
