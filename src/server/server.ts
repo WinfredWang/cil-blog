@@ -7,8 +7,7 @@ import * as session from "express-session";
 import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
 import { AdminService } from "./service/admin";
-
-const numCPUs = require('os').cpus().length;
+import { Auth } from './service/authentication';
 
 function initExpress(app) {
     app.use(session({
@@ -17,7 +16,8 @@ function initExpress(app) {
         saveUninitialized: true
     }))
 
-    //app.use(Authentication);
+    // app.use(Auth);
+
     RegisterService(app, [ArticleService, AdminService]);
 
     app.use(express.static(path.join(__dirname, 'client')));

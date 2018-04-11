@@ -41,7 +41,7 @@ Vue.component('article-list', ArticleList);
 new Vue({
     el: '#app',
     data: {
-        urls: [{ name: '关于', url: 'about' }, { name: '首页', url: 'home' }]
+        urls: [{ name: '关于', url: '/about' }, { name: '首页', url: '/home' }]
     },
     router
 })
