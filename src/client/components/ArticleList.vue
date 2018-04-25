@@ -6,9 +6,6 @@
                     {{item.title}}
                 </router-link>
             </div>
-            <div class="list-group-item-text">
-                {{item.content}}
-            </div>
             <div class="article-footer">
                 <span>时间 : {{item.postDate}}</span>
                 <span>作者 : Winfred</span>
@@ -50,6 +47,6 @@ export default {
   margin-right: 10px;
 }
 .el-card {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 </style>

@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import Navbar from './components/Navbar.vue';
 import ArticleList from './components/ArticleList.vue';
-import Home from './components/Home.vue';
 import Detail from './components/Detail.vue';
 import About from './components/About.vue';
 import ElementUI from 'element-ui';
@@ -15,7 +14,7 @@ Vue.use(VueResource)
 var router = new VueRouter({
     routes: [{
         path: '/home',
-        component: Home,
+        component: ArticleList,
         name: "home"
     }, {
         path: '/detail/:id',
@@ -36,7 +35,6 @@ var router = new VueRouter({
 })
 
 Vue.component('c-nav-bar', Navbar);
-Vue.component('article-list', ArticleList);
 
 new Vue({
     el: '#app',

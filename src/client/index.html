@@ -17,7 +17,16 @@
             </el-header>
             <el-container>
                 <el-main>
-                    <router-view></router-view>
+                    <div id="main-area">
+                        <el-row>
+                            <el-col :span="16">
+                                <router-view></router-view>
+                            </el-col>
+                            <el-col :span="2"></el-col>
+                            <el-col :span="6">
+                            </el-col>
+                        </el-row>
+                    </div>
                 </el-main>
             </el-container>
             <el-footer>

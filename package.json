@@ -1,7 +1,6 @@
 {
   "name": "app",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
     "start": "npm run build && npm run server",
     "dev": "npm run build-w && npm run server",
@@ -11,9 +10,9 @@
     "webpack": "webpack --config webpack.config.js",
     "webpack-w": "webpack --config webpack.config.js --watch",
     "tsc": "tsc",
-    "copy": "node copy-static-assert.js",
-    "copy-w": "node copy-static-assert.js -w",
-    "start:mongo": "node mongodb.js"
+    "copy": "node ./bin/copy-static-assert.js",
+    "copy-w": "node c./bin/opy-static-assert.js -w",
+    "start:mongo": "node ./bin/mongodb.js"
   },
   "dependencies": {
     "element-ui": "^2.1.0",

@@ -2,12 +2,13 @@
 import * as http from 'http';
 import * as express from "express";
 import * as path from "path";
-import * as cluster from "cluster";
 import * as session from "express-session";
 import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
 import { AdminService } from "./service/admin";
 import { Auth } from './service/authentication';
+
+let port = 3000;
 
 function initExpress(app) {
     app.use(session({
@@ -17,7 +18,6 @@ function initExpress(app) {
     }))
 
     // app.use(Auth);
-
     RegisterService(app, [ArticleService, AdminService]);
 
     app.use(express.static(path.join(__dirname, 'client')));
@@ -41,22 +41,17 @@ function initExpress(app) {
 }
 
 function createServer(app) {
-    let port = 3000;
+
     app.set('port', port);
     let server = http.createServer(app);
     server.listen(port);
-    server.on('error', onError);
-    server.on('listening', onListening);
 
-    function onError(error: any) {
+    server.on('error', function (error: any) {
         if (error.syscall !== 'listen') {
             throw error;
         }
 
-        var bind = typeof port === 'string'
-            ? 'Pipe ' + port
-            : 'Port ' + port;
-
+        var bind = 'Port ' + port;
         // handle specific listen errors with friendly messages
         switch (error.code) {
             case 'EACCES':
@@ -70,15 +65,15 @@ function createServer(app) {
             default:
                 throw error;
         }
-    }
+    });
 
-    function onListening() {
+    server.on('listening', function () {
         var addr = server.address();
         var bind = typeof addr === 'string'
             ? 'pipe ' + addr
             : 'port ' + addr.port;
         console.log('Listening on ' + bind);
-    }
+    });
 }
 
 let app = express();

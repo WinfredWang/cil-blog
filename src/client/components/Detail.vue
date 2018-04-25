@@ -14,19 +14,29 @@
                 {{article.content}}
             </div>
         </div>
-        <div class="comment-area" style="margin-top:30px;">
-          <div>留言</div>
-
+        <div class="comment-area" style="margin:30px auto;width:80%">
+          <div class="count">评论数: {{comments.length}}</div>
             <div class="comment-list">
-
+              <div class="comment" v-for="item in comments" v-bind:key="item.id">
+                <div class="user">{{item.user}} : </div>
+                <div class="content">{{item.content}}</div>
+                <div class="footer">{{item.time}}</div>
+              </div>
             </div>
-            
-            <div class="post-comment">
+            <div class="post-comment" style="width:80%">
                 <el-form>
-                     <textarea></textarea>
-                    <el-form-item>
-                        <el-button type="primary" @click="login">Login</el-button>
-                    </el-form-item>
+                  <el-form-item  label="请输入昵称">
+                      <el-input v-model="comment.nickName" placeholder="请输入昵称"></el-input>
+                  </el-form-item>
+                  <el-form-item  label="请输入邮件">
+                        <el-input v-model="comment.email" placeholder="请输入邮件"></el-input>
+                  </el-form-item>
+                  <el-form-item label="评论">
+                    <el-input type="textarea" v-model="comment.content"></el-input>
+                  </el-form-item>
+                  <el-form-item >
+                        <el-button type="primary" @click="post">发表</el-button>
+                  </el-form-item>
                 </el-form>
             </div>
         </div>
@@ -38,7 +48,9 @@ var converter = new Markdown();
 export default {
   data: function() {
     return {
-      article: {}
+      article: {},
+      comments: [],
+      comment: {}
     };
   },
   created: function() {
@@ -62,13 +74,14 @@ export default {
     getArticel: function() {
       var url = "/route/article/" + this.$route.params.id;
       this.$http.get(url).then(response => {
-        this.article = response.data[0];
+        this.article = response.body;
         this.initMarkdown();
       });
     },
     updateReadTime: function() {
       //this.$http.post('/article/' + this.article._id + "/readtime", { article: { readTime: this.article.readTime} })
-    }
+    },
+    post: function() {}
   }
 };
 </script>
@@ -91,5 +104,29 @@ export default {
 }
 #article-detail .tag span {
   margin-left: 10px;
+}
+.el-form-item {
+  margin-bottom: 0px;
+}
+.comment-area .count {
+  font-size: 20pt;
+  border-bottom: 1px solid #c7c7c7;
+}
+.comment .user {
+  font-size: 16pt;
+  color: #ff9d00;
+}
+.comment .content {
+  margin-top: 8px;
+  padding: 5px;
+}
+.comment .footer {
+  line-height: 15px;
+  height: 15px;
+  text-align: right;
+}
+.comment {
+  border-bottom: 1px dashed #f5e5cb;
+  padding: 5px 0px;
 }
 </style>

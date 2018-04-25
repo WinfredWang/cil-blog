@@ -2,6 +2,8 @@ var shell = require('shelljs');
 var path = require('path');
 var chokidar = require('chokidar');
 
+let cwd = process.cwd();
+
 const config = {
     sourceDir: 'src/client', // 静态资源根目录
     destDir: 'dist/client',  // 复制目标目录
@@ -12,8 +14,8 @@ const config = {
     ]
 }
 
-shell.mkdir('-p', path.join(__dirname, config.destDir));
-let rootDir = path.join(__dirname, config.sourceDir);
+shell.mkdir('-p', path.join(cwd, config.destDir));
+let rootDir = path.join(cwd, config.sourceDir);
 
 let files = shell.ls(rootDir);
 for (let file of files) {
@@ -42,7 +44,7 @@ function exclude(filePath) {
 
 function getRelPath(filePath) {
     filePath = path.normalize(filePath);
-    let rootDir = path.join(__dirname, config.sourceDir);
+    let rootDir = path.join(cwd, config.sourceDir);
     if (filePath.indexOf(rootDir) == 0) {
         return filePath.substring(rootDir.length + 1);
     }

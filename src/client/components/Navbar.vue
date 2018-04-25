@@ -1,6 +1,6 @@
 <template>
     <div id="navbar-area">
-      <el-menu mode="horizontal" :default-active="$route.name" :router="true">
+      <el-menu mode="horizontal" :default-active="$route.path" :router="true">
         <el-menu-item v-for="item in items" v-bind:key="item.url" :index="item.url">
           {{item.name}}
         </el-menu-item>
