@@ -2,16 +2,19 @@ import { mongoose } from './config';
 import { Article } from './model';
 import { resolve } from 'url';
 
+export const ArticleStatus = {
+    Post: 1,
+    Draft: 0
+}
+
 var ArticleSchema = new mongoose.Schema({
     title: String,
     content: String,
     status: Number,
     readTime: Number,
-    postDate: Date,
-    lastModifyDate: Date
+    postTime: Number,
+    lastModifyTime: Number
 });
-
-var articleModel = mongoose.model('Article', ArticleSchema);
 
 class ArticleDAO {
     private articleModel;
@@ -20,7 +23,7 @@ class ArticleDAO {
     }
 
     add(article) {
-        var a = new articleModel(article);
+        var a = new this.articleModel(article);
         return new Promise((resolve, reject) => {
             a.save(err => {
                 if (err) {
@@ -32,9 +35,9 @@ class ArticleDAO {
         });
     }
 
-    find(): Promise<Article[]> {
+    find(status?: number): Promise<Article[]> {
         return new Promise((resolve, reject) => {
-            this.articleModel.find((err, articles) => {
+            this.articleModel.find(status === undefined ? {} : { status: status }, (err, articles) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -46,7 +49,7 @@ class ArticleDAO {
 
     update(id, article): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.articleModel.update({ '_id': id }, { $set: { title: article.title, content: article.content } }, err => {
+            this.articleModel.update({ '_id': id }, { $set: article }, err => {
                 if (err) {
                     reject(err)
                 } else {
@@ -65,18 +68,6 @@ class ArticleDAO {
                     resolve(a);
                 }
             })
-        });
-    }
-
-    delete(id) {
-        return new Promise((resolve, reject) => {
-            articleModel.findByIdAndRemove(id, err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
         });
     }
 }

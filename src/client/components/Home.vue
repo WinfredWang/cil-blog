@@ -1,22 +1,28 @@
 <template>
     <div class="list-group" id="main-content">
-        <el-card class="list-group-item" v-for="item in articles" v-bind:key="item.id">
+      <el-row>
+        <el-col :span="16">
+          <el-card class="list-group-item" v-for="item in articles" v-bind:key="item.id">
             <div class="list-group-item-heading article-title">
                 <router-link :to="{ name: 'detail', params: { id: item._id, article:item }}">
                     {{item.title}}
                 </router-link>
             </div>
             <div class="article-footer">
-                <span>时间 : {{item.postDate}}</span>
-                <span>作者 : Winfred</span>
+                <span>时间 : {{dateFormat(item.postTime)}}</span>
                 <span>阅读 : {{item.readTime}}</span>
-                <span>评论 : 15</span>
             </div>
         </el-card>
+          </el-col>
+          <el-col :span="2"></el-col>
+          <el-col :span="6">
+          </el-col>
+      </el-row>
     </div>
 </template>
 
 <script>
+import { dateFormat } from "../util";
 export default {
   data: function() {
     return {
@@ -27,6 +33,11 @@ export default {
     this.$http.get("/route/articles").then(response => {
       this.articles = response.body;
     });
+  },
+  methods: {
+    dateFormat: function(time) {
+      return dateFormat(time);
+    }
   }
 };
 </script>

@@ -5,6 +5,7 @@ import * as path from "path";
 import * as session from "express-session";
 import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
+import { CommentService } from "./service/comment";
 import { AdminService } from "./service/admin";
 import { Auth } from './service/authentication';
 
@@ -18,7 +19,7 @@ function initExpress(app) {
     }))
 
     // app.use(Auth);
-    RegisterService(app, [ArticleService, AdminService]);
+    RegisterService(app, [ArticleService, AdminService, CommentService]);
 
     app.use(express.static(path.join(__dirname, 'client')));
 

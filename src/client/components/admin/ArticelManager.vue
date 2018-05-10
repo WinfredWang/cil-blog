@@ -7,8 +7,9 @@
         <el-table-column prop="readTime" label="阅读数" width="80"></el-table-column>
         <el-table-column fixed="right" label="操作" width="150">
           <template slot-scope="scope">
-            <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-            <el-button @click="del(scope.row, index)" type="text" size="small">删除</el-button>
+            <el-button @click="edit(scope.row)" type="text" size="small">edit</el-button>
+            <el-button v-if="scope.row.status == 1" @click="draft(scope.row, index)" type="text" size="small">Draft</el-button>
+            <el-button v-if="scope.row.status != 1" @click="post(scope.row, index)" type="text" size="small">Post</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -24,15 +25,24 @@ export default {
     };
   },
   mounted: function() {
-    this.$http.get("/route/articles").then(response => {
+    this.$http.get("/route/articles/all").then(response => {
       this.articles = response.body;
     });
   },
   methods: {
-    del: function(item, index) {
-      this.$http.delete("/route/article/" + item._id).then(response => {
-        if (response.body.msg == "success") {
-          this.articles.splice(index, 1);
+    draft: function(item, index) {
+      this.$http
+        .post("/route/article/" + item._id + "/draft")
+        .then(response => {
+          if (response.body.code == 0) {
+            item.status = 0;
+          }
+        });
+    },
+    post: function(item, index) {
+      this.$http.post("/route/article/" + item._id + "/post").then(response => {
+        if (response.body.code == 0) {
+          item.status = 1;
         }
       });
     },

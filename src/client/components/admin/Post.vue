@@ -9,6 +9,7 @@
                 <div>
                     <ul class="toolbar">
                         <li v-on:click="save">Post</li>
+                        <li v-on:click="draft">Draft</li>
                     </ul>
                 </div>
                 <div class="editor" style="padding: 10px;background-color: #fff;">
@@ -48,17 +49,25 @@ export default {
       );
     },
     save: function() {
+      this.article.status = 1;
+      this.save(this.article);
+    },
+    draft: function() {
+      this.article.status = 0;
+      this.save(this.article);
+    },
+    save: function(article) {
       if (this.article._id) {
         this.$http
           .put("/route/article", { article: this.article })
           .then(response => {
-            alert(response.body.msg);
+            alert(response.body.code);
           });
       } else {
         this.$http
           .post("/route/article", { article: this.article })
           .then(response => {
-            alert(response.body.msg);
+            alert(response.body.code);
           });
       }
     }

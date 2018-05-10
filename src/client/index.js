@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import Navbar from './components/Navbar.vue';
-import ArticleList from './components/ArticleList.vue';
+import Home from './components/Home.vue';
 import Detail from './components/Detail.vue';
 import About from './components/About.vue';
 import ElementUI from 'element-ui';
@@ -14,7 +14,7 @@ Vue.use(VueResource)
 var router = new VueRouter({
     routes: [{
         path: '/home',
-        component: ArticleList,
+        component: Home,
         name: "home"
     }, {
         path: '/detail/:id',

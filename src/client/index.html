@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Cil Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="css/common.css">
 </head>
 
@@ -18,14 +18,7 @@
             <el-container>
                 <el-main>
                     <div id="main-area">
-                        <el-row>
-                            <el-col :span="16">
-                                <router-view></router-view>
-                            </el-col>
-                            <el-col :span="2"></el-col>
-                            <el-col :span="6">
-                            </el-col>
-                        </el-row>
+                        <router-view></router-view>
                     </div>
                 </el-main>
             </el-container>
