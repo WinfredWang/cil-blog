@@ -17,7 +17,7 @@ new Vue({
             .post("/route/admin/validate", { name: this.name, password: this.password })
             .then(response => {
                 if (response.body.code == 0) {
-                    location.href = "/admin"
+                    location.href = "/admin/index.html"
                 }
             });
     },
@@ -28,7 +28,7 @@ new Vue({
                 .then(response => {
                     if (response.body.code == 0) {
                         this.invald = false;
-                        location.href = "/admin"
+                        location.href = "/admin/index.html"
                     } else {
                         this.invald = true;
                     }

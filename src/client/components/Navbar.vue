@@ -1,9 +1,9 @@
 <template>
     <div id="navbar-area">
       <el-menu mode="horizontal" :default-active="$route.path" :router="true">
-        <div class="logo">
+        <a class="logo" href="/">
           一箭中的的日志
-        </div>
+        </a>
         <el-menu-item v-for="item in items" v-bind:key="item.url" :index="item.url">
           {{item.name}}
         </el-menu-item>

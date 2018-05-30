@@ -148,8 +148,9 @@ export default {
 }
 
 #article-detail .title {
-  font-size: 20px;
+  font-size: 25pt;
   margin: 5px 0px;
+  border-bottom: 1px solid #efefef;
 }
 
 #article-detail .tag {

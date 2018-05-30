@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as express from "express";
 import * as path from "path";
 import * as session from "express-session";
+import * as history from 'connect-history-api-fallback';
 import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
 import { CommentService } from "./service/comment";
@@ -11,6 +12,12 @@ import { AdminService } from "./service/admin";
 let port = 3000;
 
 function initExpress(app) {
+    app.use(history({
+        rewrites: [
+            { from: /\/admin\/login/, to: '/admin/login.html' },
+            { from: /\/admin/, to: '/admin/index.html' }
+        ]
+    }));
     app.use(session({
         secret: 'keyboard cat',
         resave: false,
@@ -21,6 +28,7 @@ function initExpress(app) {
     RegisterService(app, [ArticleService, AdminService, CommentService]);
 
     app.use(express.static(path.join(__dirname, 'client')));
+
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
