@@ -4,7 +4,7 @@ import { Article } from './model';
 var Commentschema = new mongoose.Schema({
     email: String,
     nickName: String,
-    articleIdnp: String,
+    articleId: String,
     commentId: String,
     content: String,
     time: String
@@ -29,9 +29,9 @@ class CommentDAO {
         });
     }
 
-    find(): Promise<Article[]> {
+    find(articleId: string): Promise<Article[]> {
         return new Promise((resolve, reject) => {
-            this.commentModel.find((err, articles) => {
+            this.commentModel.find({ articleId: articleId }, (err, articles) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -69,4 +69,3 @@ class CommentDAO {
 export let commentDAO = new CommentDAO();
 
 
- 

@@ -1,12 +1,13 @@
 import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, DELETE, PUT } from "express-decorator";
 import { commentDAO } from '../model/comment';
 import { ResponseBody, ResCode, Comment } from './types';
+import { AuthMiddleware } from './authentication';
 
 @Path("/route")
 export class CommentService {
     @GET('/article/:id/comments')
-    getAll() {
-        return commentDAO.find();
+    getAll(@PathParam("id") articleId: string) {
+        return commentDAO.find(articleId);
     }
 
     @POST("/comment")
@@ -48,13 +49,13 @@ export class CommentService {
     }
 
 
-    @DELETE('/comment/:id')
+    @DELETE('/comment/:id', [AuthMiddleware])
     delete(@PathParam("id") id) {
         return commentDAO.delete(id).then(data => {
             if (data) {
-                return Promise.resolve({ 'msg': 'failure' })
+                return Promise.resolve(new ResponseBody(ResCode.Error, "Failed to delete comment."))
             } else {
-                return Promise.resolve({ 'msg': 'success' });
+                return Promise.resolve(new ResponseBody(ResCode.Success));
             }
         });
     }

@@ -1,6 +1,7 @@
 import { mongoose } from './config';
 import { Article } from './model';
 import { resolve } from 'url';
+import { IPageQuery } from './types';
 
 export const ArticleStatus = {
     Post: 1,
@@ -35,9 +36,15 @@ class ArticleDAO {
         });
     }
 
-    find(status?: number): Promise<Article[]> {
+    find(status?: number, pageQuery?: IPageQuery): Promise<Article[]> {
         return new Promise((resolve, reject) => {
-            this.articleModel.find(status === undefined ? {} : { status: status }, (err, articles) => {
+            let query = this.articleModel.find(status === undefined ? {} : { status: status });
+            query.sort({ postTime: -1 });
+            if (pageQuery) {
+                pageQuery.curIndex && query.skip((pageQuery.curIndex - 1) * pageQuery.limit);
+                pageQuery.limit && query.limit(pageQuery.limit);
+            }
+            query.exec((err, articles) => {
                 if (err) {
                     reject(err)
                 } else {

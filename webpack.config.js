@@ -23,7 +23,6 @@ module.exports = {
       'vue': path.resolve(__dirname, 'node_modules/vue/dist/vue.js'),
       'vue-router': path.resolve(__dirname, 'node_modules/vue-router/dist/vue-router.js'),
       'vue-resource': path.resolve(__dirname, 'node_modules/vue-resource/dist/vue-resource.js'),
-      'markdown': path.resolve(__dirname, 'node_modules/showdown/dist/showdown.min.js'),
       'element-ui': path.resolve(__dirname, 'node_modules/element-ui/lib/index.js')
     }
   }

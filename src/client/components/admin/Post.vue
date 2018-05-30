@@ -17,7 +17,7 @@
                 </div>
             </el-col>
             <el-col :span="12">
-                <div id="preview" style="padding:10px 5px">
+                <div id="preview" class="markdown-body" style="padding:10px 5px">
                 </div>
             </el-col>
         </el-row>
@@ -25,8 +25,7 @@
     </div>
 </template>
 <script>
-var Markdown = require("markdown").Converter;
-var converter = new Markdown();
+import { toHTML } from "../../util.js";
 export default {
   data: function() {
     return {
@@ -40,13 +39,23 @@ export default {
         this.article = response.data;
         this.update();
       });
+    } else {
+      let cache = localStorage.getItem("cil-blog-cache");
+      if (cache) {
+        try {
+          this.article = JSON.parse(cache);
+        } catch (e) {
+          this.article = null;
+        }
+      }
     }
   },
   methods: {
     update: function() {
-      document.getElementById("preview").innerHTML = converter.makeHtml(
+      document.getElementById("preview").innerHTML = toHTML(
         this.article.content
       );
+      localStorage.setItem("cil-blog-cache", JSON.stringify(this.article));
     },
     save: function() {
       this.article.status = 1;
@@ -80,6 +89,11 @@ input,
 textarea {
   border: none;
   outline: none;
+  font-family: Consolas, "Courier New", monospace;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: 0px;
 }
 
 .title input {

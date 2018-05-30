@@ -2,7 +2,7 @@
     <div class="list-group" id="main-content">
       <el-row>
         <el-col :span="16">
-          <el-card class="list-group-item" v-for="item in articles" v-bind:key="item.id">
+          <el-card class="list-group-item" v-for="item in articles" v-bind:key="item.id" shadow="hover">
             <div class="list-group-item-heading article-title">
                 <router-link :to="{ name: 'detail', params: { id: item._id, article:item }}">
                     {{item.title}}
@@ -47,7 +47,7 @@ export default {
   cursor: pointer;
 }
 #main-content .article-footer {
-  border-top: 1px dashed #ff9d00;
+  border-top: 1px dashed #d8d6d2;
   margin: 0px -15px;
   margin-top: 10px;
   font-size: 9px;
@@ -59,5 +59,7 @@ export default {
 }
 .el-card {
   margin-bottom: 10px;
+  border: none;
+  border-radius: 0;
 }
 </style>

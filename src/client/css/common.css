@@ -20,3 +20,16 @@ a:hover {
     border-bottom: 2px solid #ff9d00;
     color: #000000;
 }
+
+footer .content {
+    display: flex;
+    height: 25px; 
+    line-height: 25px;
+    justify-content: center
+}
+footer .content .link {
+    margin-left: 10px;
+}
+footer .content .link a {
+    color:#555;
+}

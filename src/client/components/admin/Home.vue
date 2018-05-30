@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="validate">
         <articel-manager></articel-manager>
     </div>
 </template>
@@ -8,13 +8,16 @@
 export default {
   data: function() {
     return {
-      urls: []
+      validate: false
     };
   },
   created: function() {
     this.$http.post("/route/admin/validate").then(response => {
-      if (response.body.status !== 0) {
-        location.href="/admin/login.html";
+      if (response.body.code !== 0) {
+        this.validate = false;
+        location.href = "/admin/login.html";
+      } else {
+        this.validate = true;
       }
     });
   }

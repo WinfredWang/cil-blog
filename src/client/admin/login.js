@@ -16,7 +16,7 @@ new Vue({
         this.$http
             .post("/route/admin/validate", { name: this.name, password: this.password })
             .then(response => {
-                if (response.body.status == 0) {
+                if (response.body.code == 0) {
                     location.href = "/admin"
                 }
             });
@@ -26,7 +26,7 @@ new Vue({
             this.$http
                 .post("/route/admin/login", { user: { name: this.name, password: this.password } })
                 .then(response => {
-                    if (response.body.status == 0) {
+                    if (response.body.code == 0) {
                         this.invald = false;
                         location.href = "/admin"
                     } else {

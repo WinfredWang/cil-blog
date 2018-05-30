@@ -2,12 +2,13 @@ import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, D
 import { articleDAO, ArticleStatus } from '../model/article';
 import { Article } from './types';
 import { ResponseBody, ResCode } from './types';
+import { AuthMiddleware } from './authentication';
 
 @Path("/route")
 export class ArticleService {
     @GET('/articles')
-    getPostArtice() {
-        return articleDAO.find(1);
+    getPostArtice(@QueryParam('index') index: number) {
+        return articleDAO.find(ArticleStatus.Post );
     }
 
     @GET('/articles/all')
@@ -20,7 +21,7 @@ export class ArticleService {
         return articleDAO.findById(id);
     }
 
-    @PUT("/article")
+    @PUT("/article", [AuthMiddleware])
     update(@FormParam('article') article: Article) {
         return articleDAO.findById(article._id).then(() => {
             let now = new Date().getTime();
@@ -28,12 +29,12 @@ export class ArticleService {
                 content: article.content,
                 lastModifyTime: now,
                 status: article.status,
-                title: article.content
+                title: article.title
             });
         });
     }
 
-    @POST("/article")
+    @POST("/article", [AuthMiddleware])
     add(@FormParam('article') article: Article) {
         let curTime = new Date().getTime();
         article.postTime = curTime;
@@ -58,7 +59,7 @@ export class ArticleService {
         });
     }
 
-    @POST('/article/:id/post')
+    @POST('/article/:id/post', [AuthMiddleware])
     post(@PathParam("id") id) {
         return articleDAO.findById(id).then(() => {
             return this.updateArticle(id, { status: ArticleStatus.Post })
@@ -67,7 +68,7 @@ export class ArticleService {
         });
     }
 
-    @POST('/article/:id/draft')
+    @POST('/article/:id/draft', [AuthMiddleware])
     draft(@PathParam("id") id) {
         return articleDAO.findById(id).then(() => {
             return this.updateArticle(id, { status: ArticleStatus.Draft })

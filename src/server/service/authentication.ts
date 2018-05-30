@@ -33,21 +33,10 @@ export var Authentication = {
     }
 }
 
-export function Auth(req, res, next) {
-    let forbidden = false;
-    for (let i = 0; i < AuthConfig.length; i++) {
-        let config = AuthConfig[i];
-        if (config.method == req.method && req.path == config.url) {
-            if (!Authentication.isValidateUser(req, res)) {
-                forbidden = true;
-            }
-            break;
-        }
-    }
-
-    if (forbidden) {
-        res.status(403).send('Forbidden');
-    } else {
+export function AuthMiddleware(req, res, next) {
+    if (Authentication.isValidateUser(req, res)) {
         next();
+    } else {
+        res.status(403).send('Forbidden');
     }
 }

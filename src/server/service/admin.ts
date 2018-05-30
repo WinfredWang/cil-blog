@@ -3,6 +3,7 @@ import { Authentication } from "./authentication";
 import { userDAO } from "../model/user";
 import * as session from "express-session";
 import * as crypto from "crypto";
+import { ResponseBody, ResCode } from "./types";
 
 function hashPwd2(pwd) {
     return hashPwd(hashPwd(pwd));
@@ -19,28 +20,28 @@ function hashPwd(pwd) {
 @Path("/route/admin")
 export class AdminService {
     @POST("/login")
-    login( @FormParam("user") user, @Response res, @Request req) {
+    login(@FormParam("user") user, @Response res, @Request req) {
         return userDAO.queryByName(user.name).then(users => {
-            let status = 1;
+            let status = ResCode.Error;
             if (users.length == 1) {
                 let userFromdb = users[0];
                 if (userFromdb['password'] == hashPwd2(user.password)) {
                     Authentication.login(user.name, req, res);
-                    status = 0;
+                    status = ResCode.Success;
                 }
             }
-            return Promise.resolve({ status: status });
+            return Promise.resolve(new ResponseBody(status));
         }).catch(err => {
-            return Promise.resolve({ status: 1 });
+            return Promise.resolve(new ResponseBody(ResCode.Error));
         });
     }
 
     @POST("/validate")
-    validate( @Response res, @Request req) {
+    validate(@Response res, @Request req) {
         if (Authentication.isValidateUser(req, res)) {
-            return { status: 0 };
+            return new ResponseBody(ResCode.Success)
         } else {
-            return { status: 1 };
+            return new ResponseBody(ResCode.Error)
         }
     }
 }

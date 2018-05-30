@@ -7,7 +7,6 @@ import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
 import { CommentService } from "./service/comment";
 import { AdminService } from "./service/admin";
-import { Auth } from './service/authentication';
 
 let port = 3000;
 

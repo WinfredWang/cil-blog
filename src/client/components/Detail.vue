@@ -10,7 +10,7 @@
                 <span>阅读 : {{article.readTime}}</span>
                 <span>评论 : {{comments.length}}</span>
             </div>
-            <div class="content" id="content">
+            <div class="content markdown-body" id="content">
                 {{article.content}}
             </div>
         </div>
@@ -43,9 +43,8 @@
     </div>
 </template>
 <script>
-import { dateFormat } from "../util.js";
-var Markdown = require("markdown").Converter;
-var converter = new Markdown();
+import { dateFormat, toHTML } from "../util.js";
+
 export default {
   data: function() {
     return {
@@ -107,7 +106,7 @@ export default {
       });
     },
     initMarkdown: function() {
-      document.getElementById("content").innerHTML = converter.makeHtml(
+      document.getElementById("content").innerHTML = toHTML(
         this.article.content
       );
     },
