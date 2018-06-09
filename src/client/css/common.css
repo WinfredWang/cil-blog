@@ -27,9 +27,16 @@ footer .content {
     line-height: 25px;
     justify-content: center
 }
+
 footer .content .link {
     margin-left: 10px;
 }
+
 footer .content .link a {
     color:#555;
+    opacity: 0.5;
+}
+
+footer .content .link a:hover {
+    opacity: 1;
 }

@@ -5,6 +5,7 @@ import Home from '../components/admin/Home.vue';
 import Post from '../components/admin/Post.vue';
 import ArticelManager from '../components/admin/ArticelManager.vue';
 import Nav from '../components/Navbar.vue';
+import Tag from '../components/admin/Tag.vue'
 import ElementUI from 'element-ui';
 
 Vue.use(ElementUI)
@@ -24,6 +25,11 @@ var router = new VueRouter({
             component: Post
         },
         {
+            path: '/tag',
+            name: "tag",
+            component: Tag
+        },
+        {
             path: '/',
             redirect: '/home'
         }
@@ -37,7 +43,7 @@ var bus = new Vue()
 var app = new Vue({
     el: '#app',
     data: {
-        urls: [{ name: '写博客', url: 'post' }, { name: '首页', url: 'home' }]
+        urls: [{ name: '标签', url: 'tag' },{ name: '写博客', url: 'post' }, { name: '首页', url: 'home' }]
     },
     router
 });

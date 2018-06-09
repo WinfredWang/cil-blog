@@ -2,6 +2,7 @@ import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, D
 import { Authentication } from "./authentication";
 import { userDAO } from "../model/user";
 import * as session from "express-session";
+import * as express from 'express';
 import * as crypto from "crypto";
 import { ResponseBody, ResCode } from "./types";
 
@@ -37,11 +38,11 @@ export class AdminService {
     }
 
     @POST("/validate")
-    validate(@Response res, @Request req) {
+    validate(@Response res: express.Response, @Request req: express.Request) {
         if (Authentication.isValidateUser(req, res)) {
             return new ResponseBody(ResCode.Success)
         } else {
-            return new ResponseBody(ResCode.Error)
+            res.redirect(302, "/admin/login.html");
         }
     }
 }

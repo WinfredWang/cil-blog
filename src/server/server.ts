@@ -7,6 +7,7 @@ import * as history from 'connect-history-api-fallback';
 import { RegisterService } from 'express-decorator'
 import { ArticleService } from "./service/article";
 import { CommentService } from "./service/comment";
+import { TagService } from "./service/tag";
 import { AdminService } from "./service/admin";
 
 let port = 3000;
@@ -25,7 +26,7 @@ function initExpress(app) {
     }))
 
     // app.use(Auth);
-    RegisterService(app, [ArticleService, AdminService, CommentService]);
+    RegisterService(app, [ArticleService, AdminService, CommentService, TagService]);
 
     app.use(express.static(path.join(__dirname, 'client')));
 
