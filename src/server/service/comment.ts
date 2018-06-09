@@ -1,6 +1,6 @@
 import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, DELETE, PUT } from "express-decorator";
 import { commentDAO } from '../model/comment';
-import { ResponseBody, ResCode, Comment } from './types';
+import { ResponseBody, ResCode, Comment } from '../types';
 import { AuthMiddleware } from './authentication';
 
 @Path("/route")

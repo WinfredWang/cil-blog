@@ -4,7 +4,7 @@ import { userDAO } from "../model/user";
 import * as session from "express-session";
 import * as express from 'express';
 import * as crypto from "crypto";
-import { ResponseBody, ResCode } from "./types";
+import { ResponseBody, ResCode } from "../types";
 
 function hashPwd2(pwd) {
     return hashPwd(hashPwd(pwd));

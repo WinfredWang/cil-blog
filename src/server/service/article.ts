@@ -1,14 +1,15 @@
 import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, DELETE, PUT } from "express-decorator";
 import { articleDAO, ArticleStatus } from '../model/article';
-import { Article } from './types';
-import { ResponseBody, ResCode } from './types';
+import { ResponseBody, ResCode, Article } from '../types';
 import { AuthMiddleware } from './authentication';
 
 @Path("/route")
 export class ArticleService {
     @GET('/articles')
-    getPostArtice(@QueryParam('index') index: number) {
-        return articleDAO.find(ArticleStatus.Post );
+    getPostArtice(@QueryParam('pageIndex') index, @QueryParam('tag') tag: string) {
+        index = parseInt(index);
+        (index < 1 || index == NaN) && (index = 1)
+        return articleDAO.find(ArticleStatus.Post, { index: index, tag: tag });
     }
 
     @GET('/articles/all')

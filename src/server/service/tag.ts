@@ -1,6 +1,6 @@
 import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, DELETE, PUT } from "express-decorator";
 import { tagDAO, ITag } from '../model/tag';
-import { ResponseBody, ResCode, Comment } from './types';
+import { ResponseBody, ResCode, Comment } from '../types';
 import { AuthMiddleware } from './authentication';
 
 @Path("/route")

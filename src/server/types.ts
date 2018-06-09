@@ -33,3 +33,9 @@ export interface Comment {
     commentId?: string;
     postTime?: number;
 }
+
+export interface IPageQuery {
+    limit?: number;
+    tag?: string
+    index?: number;
+}

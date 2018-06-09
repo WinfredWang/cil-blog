@@ -14,15 +14,15 @@
             </div>
           </el-card>
           <div class="page-query-index">
-            <span class="index">上一页</span>
-            <span class="index">下一页</span>
+            <span class="index" v-on:click="lastPage">上一页</span>
+            <span class="index" v-on:click="nextPage">下一页</span>
           </div>
             
         </el-col>
         <el-col :span="5" :offset="1">
           <div class="tag-container">
             <h4>文章标签</h4>
-              <div class="tag-list" v-on:click="filterArticle">
+              <div class="tag-list" v-on:click="queryByTag">
                   <el-tag type="info" v-for="tag in tags" :key="tag.name" >{{tag.name}}</el-tag>
               </div>
           </div>
@@ -37,13 +37,13 @@ export default {
   data: function() {
     return {
       articles: [],
-      tags: []
+      tags: [],
+      pageIndex: 1,
+      tag: ""
     };
   },
   mounted: function() {
-    this.$http.get("/route/articles").then(response => {
-      this.articles = response.body;
-    });
+    this.queryArticles();
     this.$http.get("/route/tags").then(response => {
       this.tags = response.body;
     });
@@ -52,13 +52,30 @@ export default {
     dateFormat: function(time) {
       return dateFormat(time);
     },
-    filterArticle: function(e) {
+    queryByTag: function(e) {
       if (e.target && e.target.classList.contains("el-tag")) {
         let tag = e.target.textContent;
         if (tag) {
-          alert(tag);
+          this.tag = tag;
+          this.queryArticles();
         }
       }
+    },
+    queryArticles: function() {
+      (!this.pageIndex || this.pageIndex < 1) && (this.pageIndex = 1);
+      let url = `/route/articles?pageIndex=${this.pageIndex}`;
+      this.tag && (url = url + `&tag=${this.tag}`);
+      this.$http.get(url).then(response => {
+        this.articles = response.body;
+      });
+    },
+    lastPage: function() {
+      this.pageIndex--;
+      this.queryArticles();
+    },
+    nextPage: function() {
+      this.pageIndex++;
+      this.queryArticles();
     }
   }
 };

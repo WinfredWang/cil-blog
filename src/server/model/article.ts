@@ -1,12 +1,14 @@
 import { mongoose } from './config';
 import { Article } from './model';
 import { resolve } from 'url';
-import { IPageQuery } from './types';
+import { IPageQuery } from '../types';
 
 export const ArticleStatus = {
     Post: 1,
     Draft: 0
 }
+
+const LIMIT = 10;
 
 var ArticleSchema = new mongoose.Schema({
     title: String,
@@ -41,8 +43,8 @@ class ArticleDAO {
             let query = this.articleModel.find(status === undefined ? {} : { status: status });
             query.sort({ postTime: -1 });
             if (pageQuery) {
-                pageQuery.curIndex && query.skip((pageQuery.curIndex - 1) * pageQuery.limit);
-                pageQuery.limit && query.limit(pageQuery.limit);
+                pageQuery.index && query.skip((pageQuery.index - 1) * LIMIT);
+                query.limit(LIMIT);
             }
             query.exec((err, articles) => {
                 if (err) {

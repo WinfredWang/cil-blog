@@ -39,15 +39,6 @@ export default {
         this.article = response.data;
         this.update();
       });
-    } else {
-      let cache = localStorage.getItem("cil-blog-cache");
-      if (cache) {
-        try {
-          this.article = JSON.parse(cache);
-        } catch (e) {
-          this.article = null;
-        }
-      }
     }
   },
   methods: {
@@ -55,7 +46,7 @@ export default {
       document.getElementById("preview").innerHTML = toHTML(
         this.article.content
       );
-      localStorage.setItem("cil-blog-cache", JSON.stringify(this.article));
+      //localStorage.setItem("cil-blog-cache", JSON.stringify(this.article));
     },
     save: function() {
       this.article.status = 1;

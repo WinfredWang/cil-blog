@@ -1,5 +1,4 @@
 import { mongoose } from './config';
-import { resolve } from 'path';
 
 export interface ITag {
     name: string;
