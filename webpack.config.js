@@ -2,6 +2,7 @@ var path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+  mode:"development",
   entry: {
     manager: './src/client/admin/admin.js',
     index: './src/client/index.js',

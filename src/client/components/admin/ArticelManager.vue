@@ -2,7 +2,7 @@
   <div class="articel-manager">
       <el-table :data="articles" style="width: 90%" stripe>
         <el-table-column prop="title" label="标题" width=""></el-table-column>
-        <el-table-column prop="status" label="状态" width="100"></el-table-column>
+        <el-table-column prop="statusTitle" label="状态" width="100"></el-table-column>
         <el-table-column prop="address" label="评论数" width="80"></el-table-column>
         <el-table-column prop="readTime" label="阅读数" width="80"></el-table-column>
         <el-table-column fixed="right" label="操作" width="150">
@@ -26,7 +26,16 @@ export default {
   },
   mounted: function() {
     this.$http.get("/route/articles/all").then(response => {
-      this.articles = response.body.value;
+      var articles = response.body.value;
+      for (var i = 0, l = articles.length; i < l; i++) {
+        var article = articles[i];
+        if (article.status == 1) {
+          article.statusTitle = "发布";
+        } else {
+          article.statusTitle = "草稿";
+        }
+      }
+      this.articles = articles;
     });
   },
   methods: {
@@ -36,6 +45,7 @@ export default {
         .then(response => {
           if (response.body.code == 0) {
             item.status = 0;
+            item.statusTitle = "草稿";
           }
         });
     },
@@ -43,6 +53,7 @@ export default {
       this.$http.post("/route/article/" + item._id + "/post").then(response => {
         if (response.body.code == 0) {
           item.status = 1;
+          item.statusTitle = "发布";
         }
       });
     },
