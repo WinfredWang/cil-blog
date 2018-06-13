@@ -14,14 +14,18 @@ const config = {
     ]
 }
 
-shell.mkdir('-p', path.join(cwd, config.destDir));
-let rootDir = path.join(cwd, config.sourceDir);
+let destDir = path.join(cwd, config.destDir);
+let srcDir = path.join(cwd, config.sourceDir);
 
-let files = shell.ls(rootDir);
+shell.mkdir('-p', destDir);
+
+let files = shell.ls(srcDir);
 for (let file of files) {
     if (!exclude(file)) {
-        let source = path.join(config.sourceDir, file);
-        shell.cp('-R', source, path.join(config.destDir, file));
+        let srcFile = path.join(srcDir, file);
+        let destFile = path.join(destDir, file);
+        shell.rm('-r', destFile);
+        shell.cp('-r', srcFile, destFile);
     }
 }
 
@@ -44,16 +48,15 @@ function exclude(filePath) {
 
 function getRelPath(filePath) {
     filePath = path.normalize(filePath);
-    let rootDir = path.join(cwd, config.sourceDir);
-    if (filePath.indexOf(rootDir) == 0) {
-        return filePath.substring(rootDir.length + 1);
+    if (filePath.indexOf(srcDir) == 0) {
+        return filePath.substring(srcDir.length + 1);
     }
     return filePath;
 }
 
 function watchAndCp() {
     console.log('Listening.......')
-    chokidar.watch(rootDir, { ignored: '*.ts', ignoreInitial: true }).on('add', (filePath) => {
+    chokidar.watch(srcDir, { ignored: '*.ts', ignoreInitial: true }).on('add', (filePath) => {
         copy(filePath);
     }).on('change', (filePath) => {
         copy(filePath);

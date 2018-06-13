@@ -11,7 +11,7 @@
     "webpack-w": "webpack --config webpack.config.js --watch",
     "tsc": "tsc",
     "copy": "node ./bin/copy-static-assert.js",
-    "copy-w": "node c./bin/opy-static-assert.js -w",
+    "copy-w": "node ./bin/copy-static-assert.js -w",
     "start:mongo": "node ./bin/mongodb.js"
   },
   "dependencies": {
@@ -31,15 +31,14 @@
     "@types/express-session": "^1.15.0",
     "@types/mongoose": "^4.7.18",
     "@types/node": "^8.0.10",
-    "@types/serve-favicon": "^2.2.28",
     "chokidar": "^1.7.0",
     "concurrently": "^3.5.0",
-    "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "file-loader": "^0.9.0",
-    "shelljs": "^0.7.8",
-    "vue-loader": "^10.3.0",
-    "vue-template-compiler": "^2.5.3",
-    "webpack": "^2.7.0"
+    "shelljs": "^0.8.2",
+    "vue-loader": "^15.2.4",
+    "vue-style-loader": "^4.1.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.4"
   }
 }
