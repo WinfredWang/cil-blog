@@ -42,6 +42,7 @@ export class ArticleService {
         article.lastModifyTime = curTime;
         article.readTime = 0;
         !article.status && (article.status = 0);
+        article.comments = [];
         return articleDAO.add(article).then(data => {
             if (data) {
                 return Promise.resolve(new ResponseBody(ResCode.Error))

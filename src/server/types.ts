@@ -22,15 +22,15 @@ export interface Article {
     postTime?: number;
     lastModifyTime: number;
     status: number;
+    comments: Comment[]
 }
 
 export interface Comment {
     _id?: string;
+    articleId?: string;
     nickName: string;
     email: string;
     content: string;
-    articleId: string;
-    commentId?: string;
     postTime?: number;
 }
 

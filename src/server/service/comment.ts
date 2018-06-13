@@ -1,5 +1,5 @@
 import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, DELETE, PUT } from "express-decorator";
-import { commentDAO } from '../model/comment';
+import { articleDAO } from '../model/article';
 import { ResponseBody, ResCode, Comment } from '../types';
 import { AuthMiddleware } from './authentication';
 
@@ -7,7 +7,7 @@ import { AuthMiddleware } from './authentication';
 export class CommentService {
     @GET('/article/:id/comments')
     getAll(@PathParam("id") articleId: string) {
-        return commentDAO.find(articleId);
+        return articleDAO.findComments(articleId);
     }
 
     @POST("/comment")
@@ -39,23 +39,11 @@ export class CommentService {
         }
 
         comment.postTime = new Date().getTime();
-        return commentDAO.add(comment).then(data => {
+        return articleDAO.addComment(comment.articleId, comment).then(data => {
             if (data) {
                 return Promise.resolve(new ResponseBody(ResCode.Success))
             } else {
                 return Promise.resolve(new ResponseBody(ResCode.Error, "Failed to comment, please retry later."));
-            }
-        });
-    }
-
-
-    @DELETE('/comment/:id', [AuthMiddleware])
-    delete(@PathParam("id") id) {
-        return commentDAO.delete(id).then(data => {
-            if (data) {
-                return Promise.resolve(new ResponseBody(ResCode.Error, "Failed to delete comment."))
-            } else {
-                return Promise.resolve(new ResponseBody(ResCode.Success));
             }
         });
     }

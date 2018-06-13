@@ -10,13 +10,21 @@ export const ArticleStatus = {
 
 const LIMIT = 10;
 
+var Commentschema = new mongoose.Schema({
+    email: String,
+    nickName: String,
+    content: String,
+    time: String
+});
+
 var ArticleSchema = new mongoose.Schema({
     title: String,
     content: String,
     status: Number,
     readTime: Number,
     postTime: Number,
-    lastModifyTime: Number
+    lastModifyTime: Number,
+    comments: [Commentschema]
 });
 
 class ArticleDAO {
@@ -59,6 +67,7 @@ class ArticleDAO {
         let countPromise = this.count(condition);
         let articlePromise = new Promise((resolve, reject) => {
             let query = this.articleModel.find(condition);
+            query.select("-comments");
             query.sort({ postTime: -1 });
             if (pageQuery.limit) {
                 pageQuery.index && query.skip((pageQuery.index - 1) * pageQuery.limit);
@@ -92,12 +101,37 @@ class ArticleDAO {
         });
     }
 
+    addComment(articleId, comment) {
+        return new Promise((resolve, reject) => {
+            this.articleModel.update({ '_id': articleId }, { $push: { comments: comment } }, err => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+
+    findComments(articleId) {
+        return new Promise((resolve, reject) => {
+            this.articleModel.findById(articleId, (err, a) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(a.comments)
+                }
+            })
+        });
+    }
+
     findById(id: string): Promise<Article> {
         return new Promise((resolve, reject) => {
             this.articleModel.findById(id, (err, a) => {
                 if (err) {
                     reject(err);
                 } else {
+                    delete a.comments;
                     resolve(a);
                 }
             })
