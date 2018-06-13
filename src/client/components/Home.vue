@@ -14,16 +14,16 @@
             </div>
           </el-card>
           <div class="page-query-index">
-            <span class="index" v-on:click="lastPage">上一页</span>
-            <span class="index" v-on:click="nextPage">下一页</span>
+            <span class="index" v-on:click="lastPage" v-if="showLastPage">上一页</span>
+            <span class="index" v-on:click="nextPage" v-if="showNextPage">下一页</span>
           </div>
             
         </el-col>
         <el-col :span="5" :offset="1">
           <div class="tag-container">
             <h4>文章标签</h4>
-              <div class="tag-list" v-on:click="queryByTag">
-                  <el-tag type="info" v-for="tag in tags" :key="tag.name" >{{tag.name}}</el-tag>
+              <div class="tag-list">
+                  <span class="tag" v-for="tag in tags" :key="tag.name" v-on:click="queryByTag(tag)">{{tag.name}}</span>
               </div>
           </div>
         </el-col>
@@ -39,7 +39,12 @@ export default {
       articles: [],
       tags: [],
       pageIndex: 1,
-      tag: ""
+      tag: "",
+      count: 0,
+      limit: 1,
+      pageSize: 0,
+      showLastPage: false,
+      showNextPage: true
     };
   },
   mounted: function() {
@@ -52,21 +57,25 @@ export default {
     dateFormat: function(time) {
       return dateFormat(time);
     },
-    queryByTag: function(e) {
-      if (e.target && e.target.classList.contains("el-tag")) {
-        let tag = e.target.textContent;
-        if (tag) {
-          this.tag = tag;
-          this.queryArticles();
-        }
-      }
+    queryByTag: function(tag) {
+      this.tag = tag;
+      this.queryArticles();
     },
     queryArticles: function() {
       (!this.pageIndex || this.pageIndex < 1) && (this.pageIndex = 1);
       let url = `/route/articles?pageIndex=${this.pageIndex}`;
-      this.tag && (url = url + `&tag=${this.tag}`);
+      this.tag && (url = url + `&tag=${this.tag.name}`);
       this.$http.get(url).then(response => {
-        this.articles = response.body;
+        let body = response.body;
+
+        this.articles = body.value;
+        this.pageIndex = body.index;
+        this.count = body.count;
+        this.limit = body.limit;
+        this.pageSize = parseInt(this.count / this.limit) + 1;
+
+        this.showLastPage = this.pageIndex > 1;
+        this.showNextPage = this.pageIndex < this.pageSize;
       });
     },
     lastPage: function() {
@@ -103,7 +112,6 @@ export default {
 }
 .tag-container {
   border: 1px solid #ece9e9;
-  border-radius: 10px;
   padding: 5px;
   background-color: #fff;
 }
@@ -112,14 +120,7 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.el-tag {
-  cursor: pointer;
-  margin-top: 10px;
-  margin-right: 5px;
-}
-.el-tag:hover {
-  color: #ff9d00;
-}
+
 .tag-container h4 {
   border-bottom: 1px solid #ece9e9;
 }
@@ -139,5 +140,23 @@ export default {
 
 .page-query-index .index:hover {
   opacity: 1;
+}
+
+.tag {
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 5px;
+  background-color: rgba(144, 147, 153, 0.1);
+  padding: 0 10px;
+  height: 32px;
+  line-height: 30px;
+  font-size: 12px;
+  color: #999;
+  box-sizing: border-box;
+  border: 1px solid #e3e3e3;
+  white-space: nowrap;
+}
+.tag:hover {
+  color: #ff9d00;
 }
 </style>

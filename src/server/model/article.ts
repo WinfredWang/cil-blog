@@ -38,13 +38,31 @@ class ArticleDAO {
         });
     }
 
-    find(status?: number, pageQuery?: IPageQuery): Promise<Article[]> {
+    count(condition) {
         return new Promise((resolve, reject) => {
-            let query = this.articleModel.find(status === undefined ? {} : { status: status });
+            this.articleModel.find(condition).count((err, count) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(count);
+                }
+            });
+        });
+    }
+
+    find(status?: number, pageQuery?: IPageQuery): Promise<IPageQuery> {
+        !pageQuery && (pageQuery = {});
+        !pageQuery.index && (pageQuery.index = 1);
+
+        let condition = status === undefined ? {} : { status: status };
+
+        let countPromise = this.count(condition);
+        let articlePromise = new Promise((resolve, reject) => {
+            let query = this.articleModel.find(condition);
             query.sort({ postTime: -1 });
-            if (pageQuery) {
-                pageQuery.index && query.skip((pageQuery.index - 1) * LIMIT);
-                query.limit(LIMIT);
+            if (pageQuery.limit) {
+                pageQuery.index && query.skip((pageQuery.index - 1) * pageQuery.limit);
+                query.limit(pageQuery.limit);
             }
             query.exec((err, articles) => {
                 if (err) {
@@ -54,6 +72,12 @@ class ArticleDAO {
                 }
             });
         });
+
+        return Promise.all([countPromise, articlePromise]).then(data => {
+            pageQuery.count = <number>data[0];
+            pageQuery.value = <any[]>data[1];
+            return Promise.resolve(pageQuery);
+        })
     }
 
     update(id, article): Promise<any> {

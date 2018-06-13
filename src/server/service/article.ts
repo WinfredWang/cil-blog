@@ -9,7 +9,7 @@ export class ArticleService {
     getPostArtice(@QueryParam('pageIndex') index, @QueryParam('tag') tag: string) {
         index = parseInt(index);
         (index < 1 || index == NaN) && (index = 1)
-        return articleDAO.find(ArticleStatus.Post, { index: index, tag: tag });
+        return articleDAO.find(ArticleStatus.Post, { index: index, tag: tag, limit: 10 });
     }
 
     @GET('/articles/all')

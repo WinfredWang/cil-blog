@@ -26,7 +26,7 @@ export default {
   },
   mounted: function() {
     this.$http.get("/route/articles/all").then(response => {
-      this.articles = response.body;
+      this.articles = response.body.value;
     });
   },
   methods: {

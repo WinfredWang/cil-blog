@@ -38,4 +38,6 @@ export interface IPageQuery {
     limit?: number;
     tag?: string
     index?: number;
+    value?: any[],
+    count?: number;
 }
