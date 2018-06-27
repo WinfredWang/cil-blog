@@ -2,13 +2,21 @@ import { Path, GET, QueryParam, FormParam, Request, Response, PathParam, POST, D
 import { tagDAO, ITag } from '../model/tag';
 import { ResponseBody, ResCode, Comment } from '../types';
 import { AuthMiddleware } from './authentication';
+import { TagCache } from './redis';
 
 @Path("/route")
 export class TagService {
 
     @GET('/tags')
     getAll() {
-        return tagDAO.getAll();
+        return TagCache.getTags().then(data => {
+            return data;
+        }).catch(() => {
+            return tagDAO.getAll().then(data => {
+                TagCache.setTags(data);
+                return data;
+            });
+        })
     }
 
     @POST("/tag", [AuthMiddleware])

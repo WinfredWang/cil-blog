@@ -1,6 +1,5 @@
 import { mongoose } from './config';
 import { Article } from './model';
-import { resolve } from 'url';
 import { IPageQuery } from '../types';
 
 export const ArticleStatus = {
