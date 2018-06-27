@@ -24,7 +24,8 @@ var ArticleSchema = new mongoose.Schema({
     readTime: Number,
     postTime: Number,
     lastModifyTime: Number,
-    comments: [Commentschema]
+    comments: [Commentschema],
+    tags: [String]
 });
 
 class ArticleDAO {
@@ -62,17 +63,19 @@ class ArticleDAO {
         !pageQuery && (pageQuery = {});
         !pageQuery.index && (pageQuery.index = 1);
 
-        let condition = status === undefined ? {} : { status: status };
+        let condition: any = {};
+        status !== undefined && (condition.status = status);
+        pageQuery.tag && (condition.tags = pageQuery.tag);
 
         let countPromise = this.count(condition);
         let articlePromise = new Promise((resolve, reject) => {
             let query = this.articleModel.find(condition);
-            query.select("-comments");
             query.sort({ postTime: -1 });
             if (pageQuery.limit) {
                 pageQuery.index && query.skip((pageQuery.index - 1) * pageQuery.limit);
                 query.limit(pageQuery.limit);
             }
+
             query.exec((err, articles) => {
                 if (err) {
                     reject(err)
@@ -85,6 +88,7 @@ class ArticleDAO {
         return Promise.all([countPromise, articlePromise]).then(data => {
             pageQuery.count = <number>data[0];
             pageQuery.value = <any[]>data[1];
+
             return Promise.resolve(pageQuery);
         })
     }

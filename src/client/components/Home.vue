@@ -13,9 +13,9 @@
               <span>阅读 : {{item.readTime}}</span>
             </div>
           </el-card>
-          <div class="page-query-index">
-            <span class="index" v-on:click="lastPage" v-if="showLastPage">上一页</span>
-            <span class="index" v-on:click="nextPage" v-if="showNextPage">下一页</span>
+          <div class="page-query">
+            <span class="more" v-on:click="loadMore" v-if="!isBottom">加载更多</span>
+            <span class="no-data" v-else>已到底部</span>
           </div>
             
         </el-col>
@@ -41,10 +41,7 @@ export default {
       pageIndex: 1,
       tag: "",
       count: 0,
-      limit: 1,
-      pageSize: 0,
-      showLastPage: false,
-      showNextPage: true
+      isBottom: false
     };
   },
   mounted: function() {
@@ -59,32 +56,33 @@ export default {
     },
     queryByTag: function(tag) {
       this.tag = tag;
+      this.articles = [];
+      this.pageIndex = 1;
       this.queryArticles();
     },
     queryArticles: function() {
       (!this.pageIndex || this.pageIndex < 1) && (this.pageIndex = 1);
+
       let url = `/route/articles?pageIndex=${this.pageIndex}`;
       this.tag && (url = url + `&tag=${this.tag.name}`);
-      this.$http.get(url).then(response => {
+
+      return this.$http.get(url).then(response => {
         let body = response.body;
 
-        this.articles = body.value;
+        if (body.value.length > 0) {
+          this.articles.push(...body.value);
+        }
         this.pageIndex = body.index;
         this.count = body.count;
-        this.limit = body.limit;
-        this.pageSize = parseInt(this.count / this.limit) + 1;
 
-        this.showLastPage = this.pageIndex > 1;
-        this.showNextPage = this.pageIndex < this.pageSize;
+        this.isBottom = body.count == this.articles.length;
       });
     },
-    lastPage: function() {
-      this.pageIndex--;
-      this.queryArticles();
-    },
-    nextPage: function() {
-      this.pageIndex++;
-      this.queryArticles();
+    loadMore: function() {
+      if (this.articles.length < this.count) {
+        this.pageIndex++;
+        this.queryArticles();
+      }
     }
   }
 };
@@ -125,12 +123,13 @@ export default {
   border-bottom: 1px solid #ece9e9;
 }
 
-.page-query-index {
+.page-query {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
-.page-query-index .index {
+.page-query .more,
+.page-query .no-data {
   color: #555;
   font-size: 11pt;
   cursor: pointer;
@@ -138,7 +137,7 @@ export default {
   opacity: 0.5;
 }
 
-.page-query-index .index:hover {
+.page-query .more:hover {
   opacity: 1;
 }
 

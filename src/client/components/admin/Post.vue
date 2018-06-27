@@ -8,6 +8,7 @@
                 </div>
                 <div>
                     <ul class="toolbar">
+                        <li  @click="dialogVisible = true">Add Tag</li>
                         <li v-on:click="save">Post</li>
                         <li v-on:click="draft">Draft</li>
                     </ul>
@@ -21,7 +22,22 @@
                 </div>
             </el-col>
         </el-row>
+    <el-dialog  title="Add Tag"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
 
+      <div>
+        <el-checkbox-group v-model="article.tags">
+          <el-checkbox v-for="tag in tags" :label="tag.name" :key="tag.name">{{tag.name}}</el-checkbox>
+        </el-checkbox-group>
+      </div>
+   
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
     </div>
 </template>
 <script>
@@ -29,7 +45,11 @@ import { toHTML } from "../../util.js";
 export default {
   data: function() {
     return {
-      article: {}
+      article: {
+        tags:[]
+      },
+      dialogVisible: false,
+      tags: []
     };
   },
   created: function() {
@@ -40,36 +60,46 @@ export default {
         this.update();
       });
     }
+
+    this.$http.get("/route/tags").then(response => {
+        this.tags = response.body;
+      });
   },
   methods: {
     update: function() {
       document.getElementById("preview").innerHTML = toHTML(
         this.article.content
       );
-      //localStorage.setItem("cil-blog-cache", JSON.stringify(this.article));
     },
     save: function() {
       this.article.status = 1;
-      this.save(this.article);
+      this.saveOrUpdate(this.article);
     },
     draft: function() {
       this.article.status = 0;
-      this.save(this.article);
+      this.saveOrUpdate(this.article);
     },
-    save: function(article) {
+    saveOrUpdate: function(article) {
       if (this.article._id) {
         this.$http
           .put("/route/article", { article: this.article })
           .then(response => {
-            alert(response.body.code);
+             this.$message('保存成功');
           });
       } else {
         this.$http
           .post("/route/article", { article: this.article })
           .then(response => {
-            alert(response.body.code);
+             this.$message('保存成功');
           });
       }
+    },
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
     }
   }
 };
