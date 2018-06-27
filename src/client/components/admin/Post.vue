@@ -46,7 +46,7 @@ export default {
   data: function() {
     return {
       article: {
-        tags:[]
+        tags: []
       },
       dialogVisible: false,
       tags: []
@@ -62,8 +62,8 @@ export default {
     }
 
     this.$http.get("/route/tags").then(response => {
-        this.tags = response.body;
-      });
+      this.tags = response.body;
+    });
   },
   methods: {
     update: function() {
@@ -84,13 +84,13 @@ export default {
         this.$http
           .put("/route/article", { article: this.article })
           .then(response => {
-             this.$message('保存成功');
+            this.$message({ type: "success", message: "保存成功" });
           });
       } else {
         this.$http
           .post("/route/article", { article: this.article })
           .then(response => {
-             this.$message('保存成功');
+            this.$message({ type: "success", message: "保存成功" });
           });
       }
     },

@@ -1,6 +1,12 @@
 {
   "name": "app",
   "version": "0.0.0",
+  "config": {
+    "mongodb": {
+      "dbpath":"E:/mongodb",
+      "cwd":"C:\\Program Files\\MongoDB\\Server\\3.4\\bin"
+    }
+  },
   "scripts": {
     "start": "npm run build && npm run server",
     "dev": "npm run build-w && npm run server",

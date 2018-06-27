@@ -129,7 +129,7 @@ export default {
           this.$http
             .post(`/route/comment`, { comment: this.comment })
             .then(response => {
-              alert("sucess!");
+              this.$message({ type: "success", message: "评论成功" });
             });
         }
         return false;
